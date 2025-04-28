@@ -11,7 +11,7 @@
 
   &__item {
     padding: 16px;
-    background-color: #f3f3f3;
+    background-color: var(--item-color);
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@
 }
 
 .main-navigation-item__chapter {
-  color: #787878;
+  color: var(--chapter-color);
   font-size: 15px;
   font-weight: 300;
   letter-spacing: 8px;

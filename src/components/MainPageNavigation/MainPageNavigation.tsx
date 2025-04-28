@@ -2,6 +2,7 @@ import Button from "../../UI/Button/Button";
 import AnimatedBlock from "../AnimatedBlock/AnimatedBlock";
 import MyCars from "../MyCars/MyCars";
 import ProfileLink from "../ProfileLink/ProfileLink";
+import UserPoints from "../UserPoints/UserPoints";
 import "./MainPageNavigation.scss";
 
 const MainPageNavigation = () => {
@@ -19,7 +20,7 @@ const MainPageNavigation = () => {
           <ProfileLink />
         </div>
         <div className="main-navigation__item">
-          <ProfileLink />
+          <UserPoints />
         </div>
       </div>
     </AnimatedBlock>

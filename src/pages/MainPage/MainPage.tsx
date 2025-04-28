@@ -1,5 +1,6 @@
 import GreetingBlock from "../../components/GreetingBlock/GreetingBlock";
 import MainPageNavigation from "../../components/MainPageNavigation/MainPageNavigation";
+import ThemeButton from "../../components/ThemeButton/ThemeButton";
 import Button from "../../UI/Button/Button";
 
 import "./MainPage.scss";
@@ -10,6 +11,7 @@ const MainPage = () => {
       <GreetingBlock />
       <div className="container main-page__container">
         <div className="main-page__top">
+          <ThemeButton />
           <MainPageNavigation />
         </div>
         <div className="main-page__bottom">

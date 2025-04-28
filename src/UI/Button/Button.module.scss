@@ -12,13 +12,13 @@
   background-color: #ffffff;
 
   &--filled {
-    background-color: #2c2b34;
-    color: #ffffff;
+    background-color: var(--btn-filled-back);
+    color: var(--btn-inner);
 
     &:hover {
       background-color: transparent;
-      border: 2px solid #ffffff;
-      color: #ffffff;
+      border: 2px solid var(--btn-filled-back);
+      color: var(--btn-filled-back);
     }
   }
 

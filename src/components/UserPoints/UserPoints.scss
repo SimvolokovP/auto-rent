@@ -1,0 +1,21 @@
+.user-points {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text-color);
+
+  &__score {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__text {
+    color: var(--chapter-color);
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+  }
+}

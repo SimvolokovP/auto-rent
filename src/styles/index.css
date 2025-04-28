@@ -18,13 +18,21 @@
 }
 
 :root {
-  --text-color: #ffffff;
+  --text-color: #000000;
   --background-color: #ffffff;
+  --item-color: #f3f3f3;
+  --chapter-color: #787878;
+  --btn-filled-back: #2c2b34;
+  --btn-inner: #ffffff;
 }
 
 .dark {
   --text-color: #ffffff;
-  --background-color: #2c2b34;
+  --background-color: #282931;
+  --item-color: #434343;
+  --chapter-color: #cfcfcf;
+  --btn-filled-back: #cfcfcf;
+  --btn-inner: #282931;
 }
 
 body {
@@ -57,4 +65,8 @@ a {
 
 img {
   max-width: 100%;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--text-color) !important;
 }

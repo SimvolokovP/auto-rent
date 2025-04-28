@@ -6,13 +6,13 @@ import { ICar } from "../models/ICar";
 import "./MyCars.scss";
 import MyCarItem from "../MyCarItem/MyCarItem";
 
-import 'swiper/scss/pagination';
+import "swiper/scss/pagination";
 
 interface MyCarsProps {}
 
 const carsList: ICar[] = [
-  { brand: "GR", id: 1, name: "Fortuner GR", year: "2012" },
-  { brand: "GR", id: 2, name: "Fortuner GD", year: "2012" },
+  { brand: "GR", id: 1, name: "Fortuner GR", year: "2012", type: "hatchback" },
+  { brand: "GR", id: 2, name: "Fortuner GD", year: "2012", type: "sedan" },
 ];
 
 const MyCars: FC<MyCarsProps> = () => {
