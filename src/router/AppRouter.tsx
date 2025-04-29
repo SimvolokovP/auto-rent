@@ -4,7 +4,7 @@ import PrivateRoute from "./PrivateRoute";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 
 const AppRouter = () => {
-  const isAuth = true;
+  const isAuth = false;
 
   return (
     <Routes>

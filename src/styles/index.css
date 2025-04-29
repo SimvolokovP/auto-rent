@@ -25,6 +25,7 @@
   --btn-filled-back: #2c2b34;
   --btn-inner: #ffffff;
   --btn-ripple: #434343;
+  --input-back: #cacaca;
 }
 
 .dark {
@@ -35,6 +36,7 @@
   --btn-filled-back: #cfcfcf;
   --btn-inner: #282931;
   --btn-ripple: #ffffff;
+  --input-back: #cfcfcf;
 }
 
 body {

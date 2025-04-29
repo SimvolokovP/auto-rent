@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 import { detectTheme } from "../../helpers/detectTheme";
@@ -8,12 +8,6 @@ type TThemeType = "light" | "dark";
 
 export const ThemeButton = () => {
   const [theme, setTheme] = useLocalStorage("theme", detectTheme());
-
-  const [initValue, setInitValue] = useState<string>("");
-
-  useEffect(() => {
-    setInitValue(theme);
-  }, [theme]);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -31,9 +25,7 @@ export const ThemeButton = () => {
 
   return (
     <ToggleButton
-      initValue={initValue}
-      onValue={"light"}
-      offValue={"dark"}
+      isChecked={theme === "light"}
       onCallback={() => toggleTheme()}
       offCallback={() => toggleTheme()}
     />

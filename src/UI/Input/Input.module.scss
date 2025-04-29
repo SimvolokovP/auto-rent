@@ -1,0 +1,36 @@
+.inputContainer {
+  position: relative;
+
+  & label {
+    position: absolute;
+    bottom: 5px;
+    color: var(--chapter-color);
+    left: 5px;
+  }
+
+  & input {
+    border: none;
+    outline: none;
+    background-color: var(--input-back);
+    color: var(--text-color);
+    border-radius: 24px;
+    font-weight: 500;
+    width: 100%;
+    padding: 8px;
+    padding-left: 34px;
+    padding-right: 16px;
+
+    &::placeholder {
+      color: var(--chapter-color);
+      text-transform: uppercase;
+    }
+  }
+
+  & p {
+    color: var(--text-color);
+    position: absolute;
+    top: -20px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+}
