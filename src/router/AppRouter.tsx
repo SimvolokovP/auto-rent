@@ -2,9 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import { routes } from ".";
 import PrivateRoute from "./PrivateRoute";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import useUserStore from "../store/useUserStore";
 
 const AppRouter = () => {
-  const isAuth = false;
+  const { isAuth } = useUserStore();
 
   return (
     <Routes>

@@ -1,6 +1,7 @@
 import { FC, ReactNode, ButtonHTMLAttributes, useRef } from "react";
 import styles from "./Button.module.scss";
 import { useRippling } from "../../hooks/useRippling";
+import { ClipLoader } from "react-spinners";
 
 type TButtonSize = "s" | "m" | "l";
 type TButtonMode = "filled" | "bezeled" | "plain";
@@ -10,6 +11,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: TButtonSize;
   stretched?: boolean;
   mode?: TButtonMode;
+  isLoading?: boolean;
+  isDisabled?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -17,6 +20,8 @@ const Button: FC<ButtonProps> = ({
   size = "m",
   stretched = false,
   mode = "filled",
+  isLoading = false,
+  isDisabled = false,
   ...rest
 }) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -32,6 +37,7 @@ const Button: FC<ButtonProps> = ({
 
   return (
     <button
+      disabled={isLoading || isDisabled}
       onClick={handleClick}
       ref={buttonRef}
       className={`${styles.button} ${styles[`button--${mode}`]} ${
@@ -40,7 +46,7 @@ const Button: FC<ButtonProps> = ({
       style={stretched ? { width: "100%" } : {}}
       {...rest}
     >
-      {children}
+      {isLoading ? <ClipLoader color="var(--btn-inner)" /> : children}
       {isRippling && (
         <div className="ripple-container">
           <span
