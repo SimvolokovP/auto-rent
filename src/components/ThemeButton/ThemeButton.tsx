@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 import { detectTheme } from "../../helpers/detectTheme";
 import ToggleButton from "../../UI/ToggleButton/ToggleButton";
+import { useEffect } from "react";
 
 type TThemeType = "light" | "dark";
 

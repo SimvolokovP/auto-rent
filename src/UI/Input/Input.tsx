@@ -25,11 +25,11 @@ interface InputProps {
 }
 
 const iconMap: Record<string, React.ReactNode> = {
-  text: <PiUserFill size={24} />,
-  email: <PiMailboxFill size={24} />,
-  password: <PiPassword size={24} />,
-  tel: <PiPhoneFill size={24} />,
-  file: <PiImageFill size={24} />,
+  text: <PiUserFill size={24} color="var(--input-placeholder)" />,
+  email: <PiMailboxFill size={24} color="var(--input-placeholder)" />,
+  password: <PiPassword size={24} color="var(--input-placeholder)" />,
+  tel: <PiPhoneFill size={24} color="var(--input-placeholder)" />,
+  file: <PiImageFill size={24} color="var(--input-placeholder)" />,
 };
 
 const Input: FC<InputProps> = ({
@@ -77,14 +77,7 @@ const Input: FC<InputProps> = ({
 
   return (
     <div className={styles.inputContainer}>
-      {label && (
-        <label
-          htmlFor={name}
-          style={{ display: "flex", alignItems: "center", gap: "8px" }}
-        >
-          {icon}
-        </label>
-      )}
+      {label && <label htmlFor={name}>{icon}</label>}
       <input
         id={name}
         {...register(name, validation)}

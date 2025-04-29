@@ -12,7 +12,7 @@
     border: none;
     outline: none;
     background-color: var(--input-back);
-    color: var(--text-color);
+    color: var(--input-text);
     border-radius: 24px;
     font-weight: 500;
     width: 100%;
@@ -21,7 +21,7 @@
     padding-right: 16px;
 
     &::placeholder {
-      color: var(--chapter-color);
+      color: var(--input-placeholder);
       text-transform: uppercase;
     }
   }

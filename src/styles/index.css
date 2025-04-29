@@ -26,6 +26,8 @@
   --btn-inner: #ffffff;
   --btn-ripple: #434343;
   --input-back: #cacaca;
+  --input-placeholder: #000000;
+  --input-text: #000000;
 }
 
 .dark {
@@ -37,6 +39,8 @@
   --btn-inner: #282931;
   --btn-ripple: #ffffff;
   --input-back: #cfcfcf;
+  --input-placeholder: #282931;
+  --input-text: #000000;
 }
 
 body {
