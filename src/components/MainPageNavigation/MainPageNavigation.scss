@@ -1,13 +1,12 @@
 .main-navigation {
   display: grid;
-  grid-template-columns: 2fr;
+  grid-template-columns: 3fr;
   grid-template-rows: auto;
   gap: 22px 16px;
 
-  @media (min-width: 768px) {
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: auto;
-  }
+  // @media (max-width: 768px) {
+  //   grid-template-columns: 2fr 1fr 1fr;
+  // }
 
   &__item {
     padding: 16px;

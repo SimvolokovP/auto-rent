@@ -1,4 +1,4 @@
-import { FC, ReactNode, ButtonHTMLAttributes, useRef, useState } from "react";
+import { FC, ReactNode, ButtonHTMLAttributes, useRef } from "react";
 import styles from "./Button.module.scss";
 import { useRippling } from "../../hooks/useRippling";
 
@@ -42,9 +42,9 @@ const Button: FC<ButtonProps> = ({
     >
       {children}
       {isRippling && (
-        <div className={styles.btnRippleContainer}>
+        <div className="ripple-container">
           <span
-            className={styles.btnRipple}
+            className="ripple"
             style={{
               left: x,
               top: y,

@@ -4,7 +4,7 @@ import {
   useDragControls,
   useMotionValue,
 } from "framer-motion";
-import { Dispatch, FC, ReactNode, SetStateAction } from "react";
+import { Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
 import useMeasure from "react-use-measure";
 import styles from "./Modal.module.scss";
 
@@ -17,6 +17,8 @@ interface ModalProps {
 const Modal: FC<ModalProps> = ({ open, setOpen, children }) => {
   const [scope, animate] = useAnimate();
   const [drawerRef, { height }] = useMeasure();
+
+  const [isFull, setIsFull] = useState<boolean>(false);
 
   const y = useMotionValue(0);
   const controls = useDragControls();
@@ -47,7 +49,9 @@ const Modal: FC<ModalProps> = ({ open, setOpen, children }) => {
         >
           <motion.div
             id="drawer"
-            className={styles.modal__drawer}
+            className={`${styles.modal__drawer} ${
+              isFull && styles.modal__drawerFull
+            }`}
             ref={drawerRef}
             onClick={(e) => e.stopPropagation()}
             initial={{ y: "100%" }}

@@ -1,12 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { TbMoonFilled, TbSunFilled } from "react-icons/tb";
+
 import { detectTheme } from "../../helpers/detectTheme";
+import ToggleButton from "../../UI/ToggleButton/ToggleButton";
 
 type TThemeType = "light" | "dark";
 
 export const ThemeButton = () => {
   const [theme, setTheme] = useLocalStorage("theme", detectTheme());
+
+  const [initValue, setInitValue] = useState<string>("");
+
+  useEffect(() => {
+    setInitValue(theme);
+  }, [theme]);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -17,20 +24,19 @@ export const ThemeButton = () => {
   }, [theme]);
 
   function toggleTheme() {
-    console.log(theme);
     setTheme((currentValue: TThemeType) => {
       return currentValue === "light" ? "dark" : "light";
     });
   }
 
   return (
-    <button className="cursor-pointer" onClick={toggleTheme}>
-      {theme === "dark" ? (
-        <TbMoonFilled size={22} />
-      ) : (
-        <TbSunFilled size={22} />
-      )}
-    </button>
+    <ToggleButton
+      initValue={initValue}
+      onValue={"light"}
+      offValue={"dark"}
+      onCallback={() => toggleTheme()}
+      offCallback={() => toggleTheme()}
+    />
   );
 };
 

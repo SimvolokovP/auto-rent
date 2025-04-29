@@ -6,9 +6,10 @@ interface IRoute {
   path: string;
   isIndex?: boolean;
   component: ComponentType;
+  isPrivate: boolean;
 }
 
 export const routes: IRoute[] = [
-  { path: "/auth", component: AuthPage },
-  { path: "/", component: MainPage },
+  { path: "/auth", component: AuthPage, isPrivate: false },
+  { path: "/", component: MainPage, isPrivate: true },
 ];

@@ -3,6 +3,7 @@
 
   &__bottom {
     width: 100%;
+    max-width: 768px;
   }
 
   &__container {
@@ -11,7 +12,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding-top: 35px;
-    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 35px;
+  }
+
+  &__theme {
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+
+    &--container {
+      width: 100px;
+    }
   }
 }
