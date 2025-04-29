@@ -1,10 +1,13 @@
 import { create } from "zustand";
 import { IUser } from "../components/models/IUser";
 import { UserRegisterDto } from "../components/models/dtos/UserRegister.dto";
+import { UserService } from "../api/UserService";
+import { UserLoginDto } from "../components/models/dtos/UserLogin.dto";
 
 interface UserStore {
   currentUser: IUser | null;
   registration: (registerDto: UserRegisterDto) => Promise<void>;
+  login: (loginDto: UserLoginDto) => Promise<void>;
   isAuth: boolean;
   isLoading: boolean;
 }
@@ -17,16 +20,28 @@ const useUserStore = create<UserStore>((set, get) => ({
     try {
       set({ isLoading: true });
 
-      const randomId = Math.floor(Math.random() * 10000) + 1;
+      const registerUser = await UserService.registration(registerDto);
 
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      set({ currentUser: registerUser });
 
-      set({ currentUser: { ...registerDto, id: randomId } });
       set({ isAuth: true });
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+      console.warn(errorMessage);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+  login: async (loginDto: UserLoginDto) => {
+    try {
+      set({ isLoading: true });
 
-      const currentState = get();
-      console.log("Текущее состояние после регистрации:", currentState);
-      console.log("Рандомный сгенерированный id:", randomId);
+      const loggedUser = await UserService.login(loginDto);
+
+      set({ currentUser: loggedUser });
+
+      set({ isAuth: true });
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";

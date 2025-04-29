@@ -10,9 +10,31 @@
 
   &__chapter {
     color: var(--text-color);
-    font-size: 32px;
+    font-size: 16px;
     font-weight: 300;
     letter-spacing: 8px;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    color: var(--text-color);
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 12px;
+  }
+
+  &__info {
+    color: var(--text-color);
+    text-transform: uppercase;
+  }
+
+  &__btn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--text-color);
     text-transform: uppercase;
   }
 }

@@ -5,8 +5,14 @@
     font-weight: 300;
     letter-spacing: 15%;
   }
+
+  &__no {
+    color: var(--text-color);
+    text-transform: uppercase;
+  }
 }
 
 .swiper-pagination {
-  bottom: 0 !important;
+  top: 0 !important;
+  bottom: auto !important;
 }

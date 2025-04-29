@@ -6,4 +6,5 @@ export interface IUser {
   email: string;
   phone: string;
   cars?: ICar[];
+  points?: number;
 }

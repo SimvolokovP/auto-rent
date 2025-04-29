@@ -65,6 +65,28 @@ const RegisterForm = () => {
         />
 
         <Input
+          name="phone"
+          label="Phone"
+          type="tel"
+          placeholder="Phone"
+          register={register}
+          errors={errors}
+          validation={{
+            required: "Required field",
+            pattern: {
+              value: /^\+7 \(\d{3}\) \d{3} \d{2} \d{2}$/,
+              message: "Incorrect phone format",
+            },
+          }}
+          mask={maskPhone}
+          onChangeCustom={(e) => {
+            const rawValue = e.target.value.replace(/\D/g, "");
+            const masked = maskPhone(rawValue);
+            setValue("phone", masked);
+          }}
+        />
+
+        <Input
           name="password"
           label="Password"
           type="password"
@@ -87,28 +109,6 @@ const RegisterForm = () => {
           validation={{
             validate: (value: any) =>
               value === watch("password") || "The passwords do not match",
-          }}
-        />
-
-        <Input
-          name="phone"
-          label="Phone"
-          type="tel"
-          placeholder="Phone"
-          register={register}
-          errors={errors}
-          validation={{
-            required: "Required field",
-            pattern: {
-              value: /^\+7 \(\d{3}\) \d{3} \d{2} \d{2}$/,
-              message: "Incorrect phone format",
-            },
-          }}
-          mask={maskPhone}
-          onChangeCustom={(e) => {
-            const rawValue = e.target.value.replace(/\D/g, "");
-            const masked = maskPhone(rawValue);
-            setValue("phone", masked);
           }}
         />
 

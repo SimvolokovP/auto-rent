@@ -1,6 +1,7 @@
 import AnimatedBlock from "../../components/AnimatedBlock/AnimatedBlock";
+import Header from "../../components/Header/Header";
 import MainPageNavigation from "../../components/MainPageNavigation/MainPageNavigation";
-import ThemeButton from "../../components/ThemeButton/ThemeButton";
+
 import Button from "../../UI/Button/Button";
 
 import "./MainPage.scss";
@@ -8,15 +9,11 @@ import "./MainPage.scss";
 const MainPage = () => {
   return (
     <AnimatedBlock>
+      <Header />
       <div className="page main-page">
         {/* <GreetingBlock /> */}
         <div className="container main-page__container">
           <div className="main-page__top">
-            <div className="main-page__theme">
-              <div className="main-page__theme--container">
-                <ThemeButton />
-              </div>
-            </div>
             <MainPageNavigation />
           </div>
           <div className="main-page__bottom">
