@@ -1,6 +1,7 @@
 import { ComponentType } from "react";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import MainPage from "../pages/MainPage/MainPage";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
 
 interface IRoute {
   path: string;
@@ -12,4 +13,5 @@ interface IRoute {
 export const routes: IRoute[] = [
   { path: "/auth", component: AuthPage, isPrivate: false },
   { path: "/", component: MainPage, isPrivate: true },
+  { path: "/profile", component: ProfilePage, isPrivate: true },
 ];

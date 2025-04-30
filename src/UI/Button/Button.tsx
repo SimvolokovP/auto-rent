@@ -46,7 +46,7 @@ const Button: FC<ButtonProps> = ({
       style={stretched ? { width: "100%" } : {}}
       {...rest}
     >
-      {isLoading ? <ClipLoader color="var(--btn-inner)" /> : children}
+      {isLoading ? <ClipLoader size={20} color="var(--btn-inner)" /> : children}
       {isRippling && (
         <div className="ripple-container">
           <span

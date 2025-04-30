@@ -13,4 +13,17 @@
     top: 0;
     bottom: 0;
   }
+
+  &__chapter {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--text-color);
+    letter-spacing: 5px;
+  }
+
+  &__username {
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 500;
+  }
 }
