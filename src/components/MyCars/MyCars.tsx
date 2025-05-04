@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { FC, useEffect, useState } from "react";
 import { ICar } from "../models/ICar";
 
@@ -7,6 +7,7 @@ import "./MyCars.scss";
 import MyCarItem from "../MyCarItem/MyCarItem";
 
 import "swiper/scss/pagination";
+import "swiper/scss/navigation";
 import useUserStore from "../../store/useUserStore";
 
 interface MyCarsProps {}
@@ -28,8 +29,9 @@ const MyCars: FC<MyCarsProps> = () => {
         <Swiper
           spaceBetween={50}
           slidesPerView={1}
-          modules={[Pagination]}
-          pagination={{ clickable: true }}
+          modules={[Pagination, Navigation]}
+          navigation
+          pagination={{ clickable: true, type: "fraction" }}
         >
           {carsList.map((car) => (
             <SwiperSlide key={car.id}>
