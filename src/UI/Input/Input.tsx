@@ -5,8 +5,6 @@ import {
   PiMailboxFill,
   PiPassword,
   PiUserFill,
-  PiImagesFill,
-  PiUserPlusFill,
   PiPhoneFill,
   PiImageFill,
 } from "react-icons/pi";
