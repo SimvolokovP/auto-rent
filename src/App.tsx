@@ -4,9 +4,15 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 import AppRouter from "./router/AppRouter";
 
 import "swiper/css";
+import Footer from "./Footer/Footer";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [theme] = useLocalStorage("theme", detectTheme());
+
+  const location = useLocation();
+
+  const isAuthPage = location.pathname === "/auth";
 
   useEffect(() => {
     if (theme === "dark") {
@@ -21,7 +27,7 @@ function App() {
       <main className="main">
         <AppRouter />
       </main>
-      {/* <Footer /> */}
+      {!isAuthPage && <Footer />}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import Badge from "../../UI/Badge/Badge";
 const userData = [
   { id: 1, name: "repair", status: "completed" },
   { id: 2, name: "repair", status: "rejected" },
-  { id: 3, name: "repair", status: "accepted" },
+  { id: 3, name: "repair", status: "rejected" },
 ];
 
 const ProfileLink = () => {

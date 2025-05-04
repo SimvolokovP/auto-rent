@@ -28,6 +28,9 @@
   --input-back: #cacaca;
   --input-placeholder: #000000;
   --input-text: #000000;
+
+  --footer-back: #2c2b34;
+  --footer-inner: #ffffff;
 }
 
 .dark {
@@ -41,6 +44,9 @@
   --input-back: #cfcfcf;
   --input-placeholder: #282931;
   --input-text: #000000;
+
+  --footer-back: #434343;
+  --footer-inner: #ffffff;
 }
 
 body {
