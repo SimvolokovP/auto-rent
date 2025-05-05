@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import { useEffect } from "react";
 import { maskPhone } from "../../helpers/maskPhone";
+import { PiMailboxFill, PiPassword, PiPhoneFill, PiUserFill } from "react-icons/pi";
 
 const RegisterForm = () => {
   const {
@@ -39,9 +40,9 @@ const RegisterForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
         <Input
           name="email"
-          label="Email"
           placeholder="Email"
           type="email"
+          icon={PiMailboxFill}
           register={register}
           errors={errors}
           validation={{
@@ -55,8 +56,8 @@ const RegisterForm = () => {
 
         <Input
           name="username"
-          label="Username"
           placeholder="Username"
+          icon={PiUserFill}
           register={register}
           errors={errors}
           validation={{
@@ -66,8 +67,8 @@ const RegisterForm = () => {
 
         <Input
           name="phone"
-          label="Phone"
           type="tel"
+          icon={PiPhoneFill}
           placeholder="Phone"
           register={register}
           errors={errors}
@@ -88,8 +89,8 @@ const RegisterForm = () => {
 
         <Input
           name="password"
-          label="Password"
           type="password"
+          icon={PiPassword}
           placeholder="Password"
           register={register}
           errors={errors}
@@ -101,8 +102,8 @@ const RegisterForm = () => {
 
         <Input
           name="repeatPassword"
-          label="Repeat Password"
           type="password"
+          icon={PiPassword}
           placeholder="Repeat Password"
           register={register}
           errors={errors}

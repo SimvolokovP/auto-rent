@@ -9,6 +9,7 @@ import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import { useEffect } from "react";
 
 import { UserLoginDto } from "../models/dtos/UserLogin.dto";
+import { PiMailboxFill, PiPassword } from "react-icons/pi";
 
 const LoginForm = () => {
   const {
@@ -38,7 +39,7 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
         <Input
           name="email"
-          label="Email"
+          icon={PiMailboxFill}
           placeholder="Email"
           type="email"
           register={register}
@@ -54,7 +55,7 @@ const LoginForm = () => {
 
         <Input
           name="password"
-          label="Password"
+          icon={PiPassword}
           type="password"
           placeholder="Password"
           register={register}

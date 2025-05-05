@@ -48,6 +48,8 @@ const popularCarBrands = [
 const MainPageNavigation = () => {
   const [isCarModalOpen, setIsCarModalOpen] = useState<boolean>(false);
 
+  const [mark, setMark] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -80,7 +82,9 @@ const MainPageNavigation = () => {
           placeholder="Mark of Auto"
           register={register}
           icon={PiCarLight}
+          onChangeCustom={(s: string) => setMark(s)}
         />
+        <button onClick={() => console.log(mark)}>ok</button>
       </Modal>
     </div>
   );

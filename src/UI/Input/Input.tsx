@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState, FC, createElement } from "react";
 
 import styles from "./Input.module.scss";
 import {
@@ -8,10 +8,11 @@ import {
   PiPhoneFill,
   PiImageFill,
 } from "react-icons/pi";
+import { IconType } from "react-icons";
 
 interface InputProps {
   name: string;
-  label?: string;
+  icon?: IconType;
   register: any;
   errors?: any;
   placeholder?: string;
@@ -22,17 +23,9 @@ interface InputProps {
   onChangeCustom?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const iconMap: Record<string, React.ReactNode> = {
-  text: <PiUserFill size={24} color="var(--input-placeholder)" />,
-  email: <PiMailboxFill size={24} color="var(--input-placeholder)" />,
-  password: <PiPassword size={24} color="var(--input-placeholder)" />,
-  tel: <PiPhoneFill size={24} color="var(--input-placeholder)" />,
-  file: <PiImageFill size={24} color="var(--input-placeholder)" />,
-};
-
 const Input: FC<InputProps> = ({
   name,
-  label,
+  icon = null,
   register,
   errors,
   placeholder,
@@ -69,13 +62,19 @@ const Input: FC<InputProps> = ({
     }
   };
 
-  const icon = iconMap[type] || null;
-
   const displayImage = preview;
 
   return (
     <div className={styles.inputContainer}>
-      {label && <label htmlFor={name}>{icon}</label>}
+      {icon && (
+        <label htmlFor={name}>
+          {createElement(icon, {
+            className: styles.icon,
+            size: 24,
+            color: "var(--input-placeholder)",
+          })}
+        </label>
+      )}
       <input
         id={name}
         {...register(name, validation)}
@@ -83,6 +82,7 @@ const Input: FC<InputProps> = ({
         type={type}
         accept={accept}
         onChange={handleChange}
+        className={`${styles.input} ${icon ? styles.withIcon : ""}`}
       />
       {errors?.[name] && <p>{errors[name]?.message}</p>}
 
