@@ -51,6 +51,10 @@
   width: 100%;
   padding: 8px 24px;
 
+  -webkit-box-shadow: 4px 4px 8px 0px var(--text-color-opacity);
+  -moz-box-shadow: 4px 4px 8px 0px var(--text-color-opacity);
+  box-shadow: 4px 4px 8px 0px var(--text-color-opacity);
+
   height: 83px;
 
   overflow: auto;

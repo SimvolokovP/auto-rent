@@ -20,7 +20,6 @@ const AutoComplete: FC<AutoCompleteProps> = ({
   errors,
   placeholder,
   onChangeCustom,
-  label,
   data = [],
   icon = null,
 }) => {

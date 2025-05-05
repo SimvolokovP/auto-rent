@@ -1,70 +1,116 @@
-// const CarAddForm = () => {
-//   const {
-//     register,
-//     handleSubmit,
+import { useForm } from "react-hook-form";
+import Input from "../../UI/Input/Input";
+import AutoComplete from "../../UI/AutoComplete/AutoComplete";
+import Button from "../../UI/Button/Button";
+import { useState } from "react";
+import { PiCarLight, PiCarProfile, PiTimer } from "react-icons/pi";
+import { CarCreateDto } from "../models/dtos/CarCreateDto.dto";
+import useUserStore from "../../store/useUserStore";
 
-//     formState: { errors },
-//   } = useForm<UserLoginDto>();
+const popularCarBrands = [
+  "Toyota",
+  "Lada",
+  "Hyundai",
+  "Kia",
+  "Volkswagen",
+  "Renault",
+  "Mazda",
+  "Nissan",
+  "Chevrolet",
+  "Mercedes-Benz",
+  "BMW",
+  "Audi",
+  "Skoda",
+  "Lexus",
+  "Jaguar",
+  "Subaru",
+  "Porsche",
+  "Dacia",
+  "Suzuki",
+  "Mitsubishi",
+  "Ferrari",
+  "Porsche",
+  "Bentley",
+  "Rolls-Royce",
+  "Land Rover",
+  "Jaguar",
+  "Chery",
+  "Geely",
+  "Haval",
+  "UAZ",
+  "GAZ",
+  "ZAZ",
+  "Vaz",
+];
 
-//   const { login, isLoading, isAuth } = useUserStore();
+const years = ["2025", "2024", "2023"];
 
-//   const navigate = useNavigate();
+const CarAddForm = () => {
+  const {
+    register,
+    handleSubmit,
 
-//   const onSubmit = async (user: UserLoginDto) => {
-//     await login(user);
-//   };
+    formState: { errors },
+  } = useForm<CarCreateDto>();
 
-//   useEffect(() => {
-//     if (isAuth) {
-//       navigate("/");
-//     }
-//   }, [isAuth]);
+  const { isLoading, addCarToUser } = useUserStore();
 
-//   return (
-//     <>
-//       {isLoading && <LoadingScreen />}
-//       <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
-//         <Input
-//           name="email"
-//           label="Email"
-//           placeholder="Email"
-//           type="email"
-//           register={register}
-//           errors={errors}
-//           validation={{
-//             required: "Required field",
-//             pattern: {
-//               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-//               message: "Incorrect email format",
-//             },
-//           }}
-//         />
+  const [brand, setBrand] = useState<string>("");
+  const [year, setYear] = useState<string>("");
 
-//         <Input
-//           name="password"
-//           label="Password"
-//           type="password"
-//           placeholder="Password"
-//           register={register}
-//           errors={errors}
-//           validation={{
-//             required: "Required field",
-//             minLength: { value: 6, message: "Min 6 symbols" },
-//           }}
-//         />
+  const onSubmit = async (car: CarCreateDto) => {
+    car = { ...car, brand, year, type: "hatchback" };
+    console.log(car);
+    addCarToUser(car);
+  };
 
-//         <Button
-//           size="l"
-//           mode="filled"
-//           stretched
-//           type="submit"
-//           isLoading={isLoading}
-//         >
-//           Login
-//         </Button>
-//       </form>
-//     </>
-//   );
-// };
+  return (
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
+        <Input
+          name="name"
+          placeholder="Name"
+          type="text"
+          icon={PiCarProfile}
+          register={register}
+          errors={errors}
+          validation={{
+            required: "Required field",
+          }}
+        />
 
-// export default CarAddForm;
+        <AutoComplete
+          name="brand"
+          placeholder="brand"
+          register={register}
+          errors={errors}
+          data={popularCarBrands}
+          icon={PiCarLight}
+          onChangeCustom={(v) => setBrand(v)}
+        />
+
+        <AutoComplete
+          name="year"
+          placeholder="Year"
+          register={register}
+          errors={errors}
+          data={years}
+          icon={PiTimer}
+          onChangeCustom={(v) => setYear(v)}
+        />
+
+        <Button
+          size="l"
+          mode="filled"
+          stretched
+          type="submit"
+          isLoading={isLoading}
+        >
+          Add
+        </Button>
+      </form>
+    </div>
+  );
+};
+
+export default CarAddForm;
