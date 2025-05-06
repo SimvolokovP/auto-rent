@@ -30,10 +30,15 @@
   --input-placeholder: #000000;
   --input-text: #000000;
 
-  --text-color-opacity: rgba(0, 0, 0, 0.2);  
+  --text-color-opacity: rgba(0, 0, 0, 0.2);
 
   --footer-back: #2c2b34;
   --footer-inner: #ffffff;
+
+  --calendar-back: #f3f3f3;
+  --calendar-text: #000000;
+  --calendar-active: #2c2b34;
+  --calendar-hover: #d1d1d1;
 }
 
 .dark {
@@ -48,10 +53,15 @@
   --input-placeholder: #282931;
   --input-text: #000000;
 
-  --text-color-opacity: rgba(255, 255, 255, 0.2); 
+  --text-color-opacity: rgba(255, 255, 255, 0.2);
 
   --footer-back: #434343;
   --footer-inner: #ffffff;
+
+  --calendar-back: #434343;
+  --calendar-text: #ffffff;
+  --calendar-active: #282931;
+  --calendar-hover: #313131;
 }
 
 body {
@@ -150,4 +160,15 @@ img {
     padding-bottom: 200%;
     opacity: 0;
   }
+}
+
+.btn-reset {
+  color: var(--text-color);
+  cursor: pointer;
+  display: block;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }

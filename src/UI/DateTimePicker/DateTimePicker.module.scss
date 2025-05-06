@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  gap: 12px;
+
+  height: 295px;
+  border-radius: 8px;
+  justify-content: center;
+
+  max-width: 768px;
+}
+
+.dateSection,
+.timeSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeSection {
+  height: 100%;
+  background-color: var(--calendar-back);
+  color: var(--calendar-text);
+  border-radius: 20px;
+}
+
+// label {
+//   margin-bottom: 8px;
+//   font-weight: bold;
+//   font-size: 14px;
+// }
+
+.dateInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.timeList {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.timeItem {
+  padding: 9px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.active {
+  background-color: var(--calendar-active);
+
+  color: #fff;
+}
+
+@media (hover: hover) {
+  .timeItem:hover {
+    background-color: var(--calendar-hover);
+  }
+}
