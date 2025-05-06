@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import styles from "./Calendar.module.scss";
 import { PiArrowLeftLight, PiArrowRightLight } from "react-icons/pi";
 
@@ -43,23 +43,28 @@ const Calendar: FC<CalendarProps> = ({ setSelectedDate, selectedDate }) => {
   const monthData = getMonthData(year, month);
 
   const handlePrevMonth = () => {
-    setMonth((prev) => {
-      if (prev === 0) {
-        setYear((y) => y - 1);
-        return 11;
+    setYear((prevYear) => {
+      let newYear = prevYear;
+      let newMonth = month - 1;
+      if (newMonth < 0) {
+        newMonth = 11;
+        newYear -= 1;
       }
-      return prev - 1;
+      setMonth(newMonth);
+      return newYear;
     });
   };
 
-
   const handleNextMonth = () => {
-    setMonth((prev) => {
-      if (prev === 11) {
-        setYear((y) => y + 1);
-        return 0;
+    setYear((prevYear) => {
+      let newYear = prevYear;
+      let newMonth = month + 1;
+      if (newMonth > 11) {
+        newMonth = 0;
+        newYear += 1;
       }
-      return prev + 1;
+      setMonth(newMonth);
+      return newYear;
     });
   };
 
@@ -84,11 +89,11 @@ const Calendar: FC<CalendarProps> = ({ setSelectedDate, selectedDate }) => {
   return (
     <div className={styles.calendarContainer}>
       <div className={styles.header}>
-        <button className="btn-reset" onClick={handlePrevMonth}>
+        <button type="button" className="btn-reset" onClick={handlePrevMonth}>
           <PiArrowLeftLight size={24} />
         </button>
         <div>{displayMonthYear}</div>
-        <button className="btn-reset" onClick={handleNextMonth}>
+        <button type="button" className="btn-reset" onClick={handleNextMonth}>
           <PiArrowRightLight size={24} />
         </button>
       </div>

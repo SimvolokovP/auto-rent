@@ -6,7 +6,7 @@
   border-radius: 8px;
   justify-content: center;
 
-  max-width: 768px;
+  width: 100%;
 }
 
 .dateSection,
@@ -20,6 +20,7 @@
   background-color: var(--calendar-back);
   color: var(--calendar-text);
   border-radius: 20px;
+  padding: 0 4px;
 }
 
 // label {
@@ -56,8 +57,8 @@
   color: #fff;
 }
 
-@media (hover: hover) {
-  .timeItem:hover {
-    background-color: var(--calendar-hover);
-  }
-}
+// @media (hover: hover) {
+//   .timeItem:hover {
+//     background-color: var(--calendar-hover);
+//   }
+// }

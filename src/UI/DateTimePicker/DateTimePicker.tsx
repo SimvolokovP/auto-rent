@@ -1,26 +1,22 @@
-import React, { useEffect, useState } from "react";
 import styles from "./DateTimePicker.module.scss";
 import Calendar from "../../components/Calendar/Calendar";
+import { Dispatch, FC, SetStateAction } from "react";
 
-const generateTimeOptions = () => {
-  const times = [];
-  for (let hour = 0; hour < 24; hour++) {
-    const label = `${hour.toString().padStart(2, "0")}:00`;
-    times.push({ label, value: label });
-  }
-  return times;
-};
+interface DateTimePickerProps {
+  selectedDate: Date | null;
+  selectedTime: string;
+  timeOptions: any[];
+  setSelectedTime: (s: string) => void;
+  setSelectedDate: Dispatch<SetStateAction<Date | null>>;
+}
 
-const DateTimePicker = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string>("");
-  const timeOptions = generateTimeOptions();
-
-  useEffect(() => {
-    console.log("TIME" + selectedTime);
-    console.log("DATE" + selectedDate?.toLocaleDateString("ru-RU"));
-  }, [selectedDate, selectedTime]);
-
+const DateTimePicker: FC<DateTimePickerProps> = ({
+  selectedDate,
+  selectedTime,
+  timeOptions,
+  setSelectedTime,
+  setSelectedDate,
+}) => {
   const handleTimeChange = (time: string) => {
     setSelectedTime(time);
   };
