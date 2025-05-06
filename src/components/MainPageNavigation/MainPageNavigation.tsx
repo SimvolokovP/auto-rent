@@ -9,6 +9,9 @@ import CarAddForm from "../CarAddForm/CarAddForm";
 
 const MainPageNavigation = () => {
   const [isCarModalOpen, setIsCarModalOpen] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+
+  const [carIdToEdit, setCarIdToEdit] = useState<number | null>(null);
 
   return (
     <div className="main-navigation">
@@ -18,7 +21,11 @@ const MainPageNavigation = () => {
           <Button onClick={() => setIsCarModalOpen(true)} size="s">
             +
           </Button>
-          <MyCars />
+          <MyCars
+            isEditModalOpen={isEditModalOpen}
+            setIsEditModalOpen={setIsEditModalOpen}
+            setCarIdToEdit={setCarIdToEdit}
+          />
         </>
       </div>
       <div className="main-navigation__item">
@@ -29,6 +36,10 @@ const MainPageNavigation = () => {
       </div>
       <Modal open={isCarModalOpen} setOpen={setIsCarModalOpen}>
         <CarAddForm />
+      </Modal>
+      <Modal open={isEditModalOpen} setOpen={setIsEditModalOpen}>
+        <div>edit</div>
+        {carIdToEdit && <div>{carIdToEdit}</div>}
       </Modal>
     </div>
   );

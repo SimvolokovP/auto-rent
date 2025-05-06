@@ -1,0 +1,99 @@
+import { FC, useState, useRef, useEffect, createElement } from "react";
+
+import styles from "./Select.module.scss";
+
+interface OptionProps {
+  label: string;
+  value: string;
+}
+
+interface SelectProps {
+  name: string;
+  register: any;
+  errors?: any;
+  label?: string;
+  placeholder?: string;
+  options: Array<OptionProps>;
+  onChangeCustom?: (value: any) => void;
+  OptionComponent?: FC<OptionProps> | null;
+  validation?: object;
+  setValue: (name: any, value: any) => void;
+}
+
+const Select: FC<SelectProps> = ({
+  name,
+  register,
+  errors,
+  placeholder,
+  onChangeCustom,
+  options = [],
+  OptionComponent = null,
+  validation = {},
+  setValue,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLabel, setSelectedLabel] = useState<string>("");
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionSelect = (option: OptionProps) => {
+    setSelectedLabel(option.label);
+    if (onChangeCustom) onChangeCustom(option.value);
+    setValue(name, option.value);
+    setIsOpen(false);
+  };
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (
+      containerRef.current &&
+      !containerRef.current.contains(e.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className={styles.customSelect} ref={containerRef} tabIndex={0}>
+      <div className={styles.control} onClick={handleToggle}>
+        {selectedLabel || placeholder || "Select..."}
+        <div className={styles.arrow}>{isOpen ? "▲" : "▼"}</div>
+      </div>
+
+      {errors?.[name] && <p>{errors[name]?.message}</p>}
+
+      {isOpen && (
+        <ul className={`${styles.options} ${isOpen ? styles.show : ""}`}>
+          {options.map((option, idx) => (
+            <li
+              key={option.value + idx}
+              className={styles.option}
+              onClick={() => handleOptionSelect(option)}
+            >
+              {OptionComponent
+                ? createElement(OptionComponent, {
+                    label: option.label,
+                    value: option.value,
+                  })
+                : option.label}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <input type="hidden" id={name} {...register(name, validation)} />
+    </div>
+  );
+};
+
+export default Select;

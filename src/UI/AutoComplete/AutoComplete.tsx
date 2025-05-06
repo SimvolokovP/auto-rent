@@ -12,6 +12,7 @@ interface AutoCompleteProps {
   data: string[];
   onChangeCustom?: (value: string) => void;
   icon?: IconType | null;
+  validation?: object;
 }
 
 const AutoComplete: FC<AutoCompleteProps> = ({
@@ -22,12 +23,13 @@ const AutoComplete: FC<AutoCompleteProps> = ({
   onChangeCustom,
   data = [],
   icon = null,
+  validation = {},
 }) => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isHideSuggs, setIsHideSuggs] = useState(true);
   const [selectedValue, setSelectedValue] = useState("");
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  // const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,11 +88,10 @@ const AutoComplete: FC<AutoCompleteProps> = ({
           </label>
         )}
         <input
-          className={`${styles.input} ${icon ? styles.withIcon : ""}`}
           id={name}
-          {...register(name)}
+          {...register(name, validation)}
+          className={`${styles.input} ${icon ? styles.withIcon : ""}`}
           placeholder={placeholder}
-          ref={inputRef}
           value={selectedValue}
           onChange={handleInputChange}
           onFocus={() => {
@@ -104,9 +105,9 @@ const AutoComplete: FC<AutoCompleteProps> = ({
             }
           }}
         />
-      </div>
 
-      {errors?.[name] && <p>{errors[name]?.message}</p>}
+        {errors?.[name] && <p>{errors[name]?.message}</p>}
+      </div>
 
       <ul
         className={`${styles.suggestions} ${!isHideSuggs ? styles.show : ""}`}

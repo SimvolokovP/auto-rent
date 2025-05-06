@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { FC, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { ICar } from "../models/ICar";
 
 import "./MyCars.scss";
@@ -10,9 +10,13 @@ import "swiper/scss/pagination";
 import "swiper/scss/navigation";
 import useUserStore from "../../store/useUserStore";
 
-interface MyCarsProps {}
+interface MyCarsProps {
+  isEditModalOpen: boolean;
+  setIsEditModalOpen: Dispatch<SetStateAction<boolean>>;
+  setCarIdToEdit: (n: number) => void
+}
 
-const MyCars: FC<MyCarsProps> = () => {
+const MyCars: FC<MyCarsProps> = ({ isEditModalOpen, setIsEditModalOpen, setCarIdToEdit }) => {
   const [carsList, setCarsList] = useState<ICar[]>([]);
 
   const { currentUser } = useUserStore();
@@ -35,7 +39,12 @@ const MyCars: FC<MyCarsProps> = () => {
         >
           {carsList.map((car) => (
             <SwiperSlide key={car.id}>
-              <MyCarItem car={car} />
+              <MyCarItem
+                car={car}
+                isEditModalOpen={isEditModalOpen}
+                setIsEditModalOpen={setIsEditModalOpen}
+                setCarIdToEdit={setCarIdToEdit}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -1,4 +1,4 @@
-type TCarType = "hatchback" | "minivan" | "sedan";
+export type TCarType = "hatchback" | "minivan" | "sedan";
 
 export interface ICar {
   id: number;

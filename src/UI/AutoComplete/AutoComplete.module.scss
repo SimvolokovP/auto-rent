@@ -96,6 +96,7 @@
   @media (hover: hover) {
     &:hover {
       background-color: var(--input-hover);
+      color: var(--text-color);
     }
   }
 }

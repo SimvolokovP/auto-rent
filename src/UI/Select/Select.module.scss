@@ -1,0 +1,99 @@
+.customSelect {
+  position: relative;
+  width: 100%;
+
+  & p {
+    color: var(--text-color);
+    position: absolute;
+    top: -20px;
+    margin: 0;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  outline: none;
+  background-color: var(--input-back);
+  color: var(--input-text);
+  border-radius: 24px;
+  font-weight: 500;
+  width: 100%;
+  padding: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  color: var(--input-placeholder);
+
+  text-transform: uppercase;
+
+  & input::placeholder {
+    color: var(--input-placeholder);
+    text-transform: uppercase;
+  }
+}
+
+.arrow {
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 83px;
+  overflow-y: auto;
+  background-color: var(--input-back);
+  border-radius: 24px;
+  font-weight: 500;
+  width: 100%;
+  padding: 8px 24px;
+  border-top: none;
+  z-index: 120;
+  margin-top: 10px;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 24px;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  pointer-events: none;
+}
+
+.options.show {
+  opacity: 1;
+  transform: translateY(0);
+
+  pointer-events: all;
+}
+
+.options li {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--input-back);
+  color: var(--input-text);
+  padding: 4px;
+  padding-left: 8px;
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--input-hover);
+      color: var(--text-color);
+    }
+  }
+}

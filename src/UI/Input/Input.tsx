@@ -1,13 +1,7 @@
 import { useState, FC, createElement } from "react";
 
 import styles from "./Input.module.scss";
-import {
-  PiMailboxFill,
-  PiPassword,
-  PiUserFill,
-  PiPhoneFill,
-  PiImageFill,
-} from "react-icons/pi";
+
 import { IconType } from "react-icons";
 
 interface InputProps {
