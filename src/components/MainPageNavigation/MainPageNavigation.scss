@@ -20,13 +20,6 @@
     position: relative;
     grid-column: span 1;
 
-    & button {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      z-index: 10;
-    }
-
     &--large {
       min-height: 180px;
       grid-column: span 2;
@@ -43,4 +36,11 @@
   top: 16px;
   left: 22px;
   text-transform: uppercase;
+}
+
+.main-navigation-item__adder {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
 }

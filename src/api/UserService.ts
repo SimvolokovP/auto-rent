@@ -1,80 +1,66 @@
+import { AxiosResponse } from "axios";
+
 import { CarCreateDto } from "../components/models/dtos/CarCreateDto.dto";
 import { UserLoginDto } from "../components/models/dtos/UserLogin.dto";
 import { UserRegisterDto } from "../components/models/dtos/UserRegister.dto";
-import { ICar } from "../components/models/ICar";
-import { IUser } from "../components/models/IUser";
+import { IProfile, IUser } from "../components/models/IUser";
+import { AuthResponse } from "../components/models/response/AuthResponse";
+import { authHost, host } from ".";
+
+function normalizePhone(phone: string): string {
+  return phone.replace(/\D/g, "");
+}
 
 export class UserService {
   static async registration(
-    userRegistrationDto: UserRegisterDto
-  ): Promise<IUser> {
-    const randomId = Math.floor(Math.random() * 10000) + 1;
-
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    return {
-      ...userRegistrationDto,
-      id: randomId,
-      points: 700,
-      cars: [
-        {
-          id: 1,
-          brand: "Lada",
-          name: "Lada Granta",
-          type: "sedan",
-          year: "2018",
-        },
-        {
-          id: 2,
-          brand: "Mitsubishi",
-          name: "Mitsubishi Lancer X",
-          type: "sedan",
-          year: "2012",
-        },
-      ],
-    };
+    user: UserRegisterDto
+  ): Promise<AxiosResponse<AuthResponse>> {
+    try {
+      const { email, password, phone } = user;
+      // console.log({ ...user, phone: normalizePhone(phone) });
+      const response = await host.post("/registration/", {
+        email,
+        password,
+        phone: normalizePhone(phone),
+      });
+      return response;
+    } catch (err) {
+      console.warn("Registration error:", err);
+      throw err;
+    }
   }
 
-  static async login(userLoginDto: UserLoginDto): Promise<IUser> {
-    const randomId = Math.floor(Math.random() * 10000) + 1;
-
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    return {
-      ...userLoginDto,
-      id: randomId,
-      points: 100,
-      phone: "+7 (000) 000 00 00",
-      username: "user",
-      cars: [
-        {
-          id: 1,
-          brand: "Lada",
-          name: "Lada Granta",
-          type: "sedan",
-          year: "2018",
-        },
-        {
-          id: 2,
-          brand: "Mitsubishi",
-          name: "Mitsubishi Lancer X",
-          type: "sedan",
-          year: "2012",
-        },
-      ],
-    };
+  static async login(user: UserLoginDto): Promise<AxiosResponse<AuthResponse>> {
+    try {
+      const { email, password } = user;
+      const response = await host.post("/token/", { email, password });
+      return response;
+    } catch (err) {
+      console.warn("Login error:", err);
+      throw err;
+    }
   }
 
-  static async addCarToUser(carDto: CarCreateDto, user: IUser): Promise<IUser> {
-    const randomId = Math.floor(Math.random() * 10000) + 1;
+  static async getMe(): Promise<AxiosResponse<IProfile>> {
+    try {
+      const response = await authHost.get("/user/me/");
+      return response;
+    } catch (err) {
+      console.warn("GetMe error:", err);
+      throw err;
+    }
+  }
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    const newCar: ICar = { ...carDto, id: randomId };
-
-    return {
-      ...user,
-      cars: [...(user.cars || []), newCar],
-    };
+  static async addCarToUser(carDto: CarCreateDto, user: IUser) {
+    try {
+      // await api.post(`/user/${user.id}/cars`, carDto);
+      // пример - рандомный id, пока API не реализовано:
+      // const newCar: ICar = { ...carDto, id: Math.floor(Math.random() * 10000) + 1 };
+      // возвращение обновленного пользователя
+      // return { ...user, cars: [...(user.cars || []), newCar] };
+    } catch (err) {
+      console.warn("AddCarToUser error:", err);
+      throw err;
+    }
   }
 }

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import { useEffect } from "react";
 import { maskPhone } from "../../helpers/maskPhone";
-import { PiMailboxFill, PiPassword, PiPhoneFill, PiUserFill } from "react-icons/pi";
+import { PiMailboxFill, PiPassword, PiPhoneFill } from "react-icons/pi";
 
 const RegisterForm = () => {
   const {
@@ -54,7 +54,7 @@ const RegisterForm = () => {
           }}
         />
 
-        <Input
+        {/* <Input
           name="username"
           placeholder="Username"
           icon={PiUserFill}
@@ -63,7 +63,7 @@ const RegisterForm = () => {
           validation={{
             required: "Required field",
           }}
-        />
+        /> */}
 
         <Input
           name="phone"

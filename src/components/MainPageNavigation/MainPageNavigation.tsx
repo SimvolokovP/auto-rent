@@ -18,7 +18,7 @@ const MainPageNavigation = () => {
       <div className="main-navigation__item main-navigation__item--large">
         <>
           <div className="main-navigation-item__chapter">My cars</div>
-          <Button onClick={() => setIsCarModalOpen(true)} size="s">
+          <Button className="main-navigation-item__adder" onClick={() => setIsCarModalOpen(true)} size="s">
             +
           </Button>
           <MyCars

@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 import { UserLoginDto } from "../models/dtos/UserLogin.dto";
 import { PiMailboxFill, PiPassword } from "react-icons/pi";
+import { useAlert } from "../../UI/Alert";
 
 const LoginForm = () => {
   const {
@@ -20,11 +21,24 @@ const LoginForm = () => {
   } = useForm<UserLoginDto>();
 
   const { login, isLoading, isAuth } = useUserStore();
+  const { alert } = useAlert();
 
   const navigate = useNavigate();
 
   const onSubmit = async (user: UserLoginDto) => {
-    await login(user);
+    try {
+      console.log(user);
+      await login(user);
+    } catch (error: any) {
+      console.warn(error);
+      alert({
+        message: error.message,
+        title: "Error",
+        type: "error",
+        autoClose: true,
+        delay: 100,
+      });
+    }
   };
 
   useEffect(() => {

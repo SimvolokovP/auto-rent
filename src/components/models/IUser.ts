@@ -1,10 +1,19 @@
 import { ICar } from "./ICar";
 
 export interface IUser {
-  id: number;
-  username: string;
+  id?: number;
   email: string;
   phone: string;
-  cars?: ICar[];
-  points?: number;
+}
+
+export interface IProfile {
+  id: number;
+  first_name?: string;
+  last_name?: string;
+  avatar?: string;
+  description?: string;
+  date_birth?: string;
+  points: number;
+  user: IUser;
+  cars: ICar[];
 }

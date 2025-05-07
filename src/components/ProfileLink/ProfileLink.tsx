@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./ProfileLink.scss";
 import useUserStore from "../../store/useUserStore";
 import Badge from "../../UI/Badge/Badge";
+import Button from "../../UI/Button/Button";
 
 const userData = [
   { id: 1, name: "repair", status: "completed" },
@@ -29,15 +30,23 @@ const ProfileLink = () => {
     <div className="profile-link">
       <div className="profile-link__chapter">My Profile</div>
 
-      <Badge
-        color={getColorByStatus(userData[userData.length - 1].status)}
-        count={1}
-        position="right-top"
-      >
-        <div className="profile-link__username">{currentUser?.username}</div>
-      </Badge>
-
-      <Link className="profile-link__link" to={"/profile"} />
+      <div className="profile-link__descr">
+        <Badge
+          color={getColorByStatus(userData[userData.length - 1].status)}
+          count={1}
+          position="right-top"
+        >
+          <Link to={"/profile"}>
+            <div className="profile-link__username">
+              {currentUser?.first_name}
+            </div>
+          </Link>
+        </Badge>
+        <span>/</span>
+        <Button mode="plain" size="s">
+          Log Out
+        </Button>
+      </div>
     </div>
   );
 };

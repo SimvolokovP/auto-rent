@@ -25,7 +25,7 @@ const MyCarItem: FC<MyCarItemProps> = ({
   };
 
   const handleDelete = () => {
-    console.log("deleet");
+    console.log("deleet" + car.id);
   };
 
   return (
@@ -52,7 +52,8 @@ const MyCarItem: FC<MyCarItemProps> = ({
             <PiPenFill size={20} />
           </span>
         </div>
-        <div className="my-car-item__action"
+        <div
+          className="my-car-item__action"
           onClick={() =>
             alert({
               title: "Delete?",
@@ -66,6 +67,33 @@ const MyCarItem: FC<MyCarItemProps> = ({
                 },
                 {
                   text: "Yes",
+                  callback: () => {
+                    handleDelete();
+                  },
+                },
+                {
+                  text: "Maybe",
+                },
+                {
+                  text: "Of cousre",
+                  callback: () => {
+                    handleDelete();
+                  },
+                },
+                {
+                  text: "Hm",
+                },
+                {
+                  text: "Good",
+                  callback: () => {
+                    handleDelete();
+                  },
+                },
+                {
+                  text: "Ok",
+                },
+                {
+                  text: "Nice",
                   callback: () => {
                     handleDelete();
                   },

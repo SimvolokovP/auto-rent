@@ -20,7 +20,7 @@
   background-color: var(--calendar-back);
   color: var(--calendar-text);
   border-radius: 20px;
-  padding: 0 4px;
+  padding: 8px 4px;
 }
 
 // label {
@@ -44,7 +44,7 @@
 }
 
 .timeItem {
-  padding: 9px;
+  padding: 6px;
   cursor: pointer;
   transition: background 0.2s;
   border-radius: 4px;
