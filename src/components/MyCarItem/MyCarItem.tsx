@@ -4,6 +4,7 @@ import { ICar } from "../models/ICar";
 import "./MyCarItem.scss";
 import { PiBusFill, PiClockFill, PiPenFill, PiTrashFill } from "react-icons/pi";
 import { useAlert } from "../../UI/Alert";
+import useUserStore from "../../store/useUserStore";
 
 interface MyCarItemProps {
   car: ICar;
@@ -19,13 +20,15 @@ const MyCarItem: FC<MyCarItemProps> = ({
 }) => {
   const { alert } = useAlert();
 
+  const { deleteCarFromUser } = useUserStore();
+
   const handleEdit = () => {
     setIsEditModalOpen(true);
     setCarIdToEdit(car.id);
   };
 
   const handleDelete = () => {
-    console.log("deleet" + car.id);
+    deleteCarFromUser(car.id);
   };
 
   return (
@@ -57,9 +60,10 @@ const MyCarItem: FC<MyCarItemProps> = ({
           onClick={() =>
             alert({
               title: "Delete?",
-              message: "Delete?",
-              autoClose: false,
+              message: `Delete ${car.name}?`,
+              autoClose: true,
               isCloseBtn: true,
+              delay: 700,
               type: "warn",
               actions: [
                 {
@@ -67,33 +71,6 @@ const MyCarItem: FC<MyCarItemProps> = ({
                 },
                 {
                   text: "Yes",
-                  callback: () => {
-                    handleDelete();
-                  },
-                },
-                {
-                  text: "Maybe",
-                },
-                {
-                  text: "Of cousre",
-                  callback: () => {
-                    handleDelete();
-                  },
-                },
-                {
-                  text: "Hm",
-                },
-                {
-                  text: "Good",
-                  callback: () => {
-                    handleDelete();
-                  },
-                },
-                {
-                  text: "Ok",
-                },
-                {
-                  text: "Nice",
                   callback: () => {
                     handleDelete();
                   },

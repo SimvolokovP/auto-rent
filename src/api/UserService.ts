@@ -6,6 +6,7 @@ import { UserRegisterDto } from "../components/models/dtos/UserRegister.dto";
 import { IProfile, IUser } from "../components/models/IUser";
 import { AuthResponse } from "../components/models/response/AuthResponse";
 import { authHost, host } from ".";
+import { ICar } from "../components/models/ICar";
 
 function normalizePhone(phone: string): string {
   return phone.replace(/\D/g, "");
@@ -51,15 +52,31 @@ export class UserService {
     }
   }
 
-  static async addCarToUser(carDto: CarCreateDto, user: IUser) {
+  static async addCarToUser(
+    carDto: CarCreateDto
+  ): Promise<AxiosResponse<ICar>> {
     try {
-      // await api.post(`/user/${user.id}/cars`, carDto);
-      // пример - рандомный id, пока API не реализовано:
-      // const newCar: ICar = { ...carDto, id: Math.floor(Math.random() * 10000) + 1 };
-      // возвращение обновленного пользователя
-      // return { ...user, cars: [...(user.cars || []), newCar] };
+      console.log(carDto);
+      const { brand, car_type, name, year } = carDto;
+      const response = await authHost.post("/car/", {
+        brand,
+        car_type,
+        name,
+        year,
+      });
+      return response;
     } catch (err) {
-      console.warn("AddCarToUser error:", err);
+      console.warn("Car add error:", err);
+      throw err;
+    }
+  }
+
+  static async deleteCarFromUser(carId: number): Promise<AxiosResponse<ICar>> {
+    try {
+      const response = await authHost.delete(`/car/${carId}/`);
+      return response;
+    } catch (err) {
+      console.warn("Car add error:", err);
       throw err;
     }
   }

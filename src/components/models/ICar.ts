@@ -5,5 +5,5 @@ export interface ICar {
   name: string;
   year: string;
   brand: string;
-  type: TCarType;
+  car_type: TCarType;
 }

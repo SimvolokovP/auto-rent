@@ -35,10 +35,16 @@ authHost.interceptors.response.use(
     ) {
       originalRequest._isRetry = true;
       try {
-        const response = await axios.get(`${API_URL}/token/refresh/`, {
-          withCredentials: true,
+        const refreshToken = localStorage.getItem("refreshToken");
+        const response = await axios.post(`${API_URL}/token/refresh/`, {
+          refreshToken,
         });
-        localStorage.setItem("accessToken", response.data.access);
+        console.log(response)
+        const { access } = response.data;
+
+        localStorage.setItem("accessToken", access);
+
+        originalRequest.headers.Authorization = `Bearer ${access}`;
         return authHost.request(originalRequest);
       } catch (e) {
         console.log("Not Auth");

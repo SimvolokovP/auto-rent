@@ -80,7 +80,7 @@ const CarAddForm = () => {
   // };
 
   const onSubmit = async (car: CarCreateDto) => {
-    car = { ...car, brand, year, type };
+    car = { ...car, brand, year: `${year}-01-01`, car_type: type };
     console.log(car);
     await addCarToUser(car);
     reset();
@@ -139,7 +139,7 @@ const CarAddForm = () => {
 
         <Select
           setValue={setValue}
-          name="type"
+          name="car_type"
           register={register}
           options={options}
           placeholder="Choose a type..."

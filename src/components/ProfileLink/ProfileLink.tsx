@@ -11,7 +11,7 @@ const userData = [
 ];
 
 const ProfileLink = () => {
-  const { currentUser } = useUserStore();
+  const { currentUser, logOut } = useUserStore();
 
   function getColorByStatus(status: string) {
     switch (status) {
@@ -43,7 +43,7 @@ const ProfileLink = () => {
           </Link>
         </Badge>
         <span>/</span>
-        <Button mode="plain" size="s">
+        <Button onClick={logOut} mode="plain" size="s">
           Log Out
         </Button>
       </div>

@@ -6,6 +6,7 @@ import { UserLoginDto } from "../components/models/dtos/UserLogin.dto";
 import { CarCreateDto } from "../components/models/dtos/CarCreateDto.dto";
 import axios from "axios";
 import { AuthResponse } from "../components/models/response/AuthResponse";
+import { number } from "framer-motion";
 
 interface UserStore {
   currentUser: IProfile | null;
@@ -15,6 +16,8 @@ interface UserStore {
   isAuth: boolean;
   isLoading: boolean;
   addCarToUser: (carDto: CarCreateDto) => Promise<void>;
+  deleteCarFromUser: (carId: number) => Promise<void>;
+  logOut: () => void;
 }
 
 const useUserStore = create<UserStore>((set, get) => ({
@@ -28,6 +31,7 @@ const useUserStore = create<UserStore>((set, get) => ({
       const registerResponse = await UserService.registration(registerDto);
 
       localStorage.setItem("accessToken", registerResponse.data.access);
+      localStorage.setItem("refreshToken", registerResponse.data.refresh);
 
       console.log(registerResponse);
 
@@ -49,6 +53,7 @@ const useUserStore = create<UserStore>((set, get) => ({
       const userResponse = await UserService.login(loginDto);
       console.log(userResponse);
       localStorage.setItem("accessToken", userResponse.data.access);
+      localStorage.setItem("refreshToken", userResponse.data.refresh);
 
       const loggedUser = await UserService.getMe();
 
@@ -64,6 +69,12 @@ const useUserStore = create<UserStore>((set, get) => ({
     } finally {
       set({ isLoading: false });
     }
+  },
+
+  logOut: () => {
+    set({ isAuth: false });
+    localStorage.setItem("accessToken", "");
+    localStorage.setItem("refreshToken", "");
   },
 
   checkAuth: async () => {
@@ -86,19 +97,42 @@ const useUserStore = create<UserStore>((set, get) => ({
     }
   },
 
+  deleteCarFromUser: async (carId: number) => {
+    try {
+      set({ isLoading: true });
+
+      const currentUser = get().currentUser;
+
+      if (currentUser) {
+        await UserService.deleteCarFromUser(carId);
+
+        const updatedCars = (currentUser.cars || []).filter(
+          (car) => car.id !== carId
+        );
+
+        set({ currentUser: { ...currentUser, cars: updatedCars } });
+      }
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+      console.warn(errorMessage);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
   addCarToUser: async (carDto: CarCreateDto) => {
     try {
       set({ isLoading: true });
 
       const currentUser = get().currentUser;
 
-      if (!currentUser) {
-        throw new Error("Пользователь не авторизован");
+      if (currentUser) {
+        const response = await UserService.addCarToUser(carDto);
+
+        const updatedCars = [...(currentUser.cars || []), response.data];
+        set({ currentUser: { ...currentUser, cars: updatedCars } });
       }
-
-      // const updatedUser = await UserService.addCarToUser(carDto, currentUser);
-
-      // set({ currentUser: updatedUser });
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
