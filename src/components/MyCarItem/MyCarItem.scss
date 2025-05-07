@@ -22,6 +22,10 @@
     color: var(--text-color);
   }
 
+  &__action {
+    cursor: pointer;
+  }
+
   &__content {
     display: flex;
     gap: 16px;

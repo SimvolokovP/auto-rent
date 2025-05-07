@@ -48,17 +48,16 @@
   cursor: pointer;
   transition: background 0.2s;
   border-radius: 4px;
-  background-color: transparent;
+
+  &.active {
+    background-color: var(--calendar-active) !important;
+
+    color: #fff;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--calendar-hover);
+    }
+  }
 }
-
-.active {
-  background-color: var(--calendar-active);
-
-  color: #fff;
-}
-
-// @media (hover: hover) {
-//   .timeItem:hover {
-//     background-color: var(--calendar-hover);
-//   }
-// }

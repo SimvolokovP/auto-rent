@@ -1,6 +1,7 @@
 import { FC, useState, useRef, useEffect, createElement } from "react";
 
 import styles from "./Select.module.scss";
+import { PiArrowUpBold } from "react-icons/pi";
 
 interface OptionProps {
   label: string;
@@ -67,7 +68,9 @@ const Select: FC<SelectProps> = ({
     <div className={styles.customSelect} ref={containerRef} tabIndex={0}>
       <div className={styles.control} onClick={handleToggle}>
         {selectedLabel || placeholder || "Select..."}
-        <div className={styles.arrow}>{isOpen ? "▲" : "▼"}</div>
+        <div className={`${styles.arrow} ${isOpen ? styles.open : ""}`}>
+          <PiArrowUpBold size={20} />
+        </div>
       </div>
 
       {errors?.[name] && <p>{errors[name]?.message}</p>}

@@ -3,6 +3,7 @@ import { ICar } from "../models/ICar";
 
 import "./MyCarItem.scss";
 import { PiBusFill, PiClockFill, PiPenFill, PiTrashFill } from "react-icons/pi";
+import { useAlert } from "../../UI/Alert";
 
 interface MyCarItemProps {
   car: ICar;
@@ -16,9 +17,15 @@ const MyCarItem: FC<MyCarItemProps> = ({
   setIsEditModalOpen,
   setCarIdToEdit,
 }) => {
+  const { alert } = useAlert();
+
   const handleEdit = () => {
     setIsEditModalOpen(true);
     setCarIdToEdit(car.id);
+  };
+
+  const handleDelete = () => {
+    console.log("deleet");
   };
 
   return (
@@ -40,12 +47,33 @@ const MyCarItem: FC<MyCarItemProps> = ({
           </span>
           <span>{car.year}</span>
         </div>
-        <div onClick={handleEdit}>
+        <div className="my-car-item__action" onClick={handleEdit}>
           <span>
             <PiPenFill size={20} />
           </span>
         </div>
-        <div>
+        <div className="my-car-item__action"
+          onClick={() =>
+            alert({
+              title: "Delete?",
+              message: "Delete?",
+              autoClose: false,
+              isCloseBtn: true,
+              type: "warn",
+              actions: [
+                {
+                  text: "No",
+                },
+                {
+                  text: "Yes",
+                  callback: () => {
+                    handleDelete();
+                  },
+                },
+              ],
+            })
+          }
+        >
           <span>
             <PiTrashFill size={20} />
           </span>

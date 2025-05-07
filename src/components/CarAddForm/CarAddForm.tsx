@@ -9,7 +9,8 @@ import useUserStore from "../../store/useUserStore";
 import Select from "../../UI/Select/Select";
 import { TCarType } from "../models/ICar";
 
-import './CarAddForm.scss';
+import "./CarAddForm.scss";
+import { useAlert } from "../../UI/Alert";
 
 const popularCarBrands = [
   "Toyota",
@@ -71,6 +72,8 @@ const CarAddForm = () => {
   const [year, setYear] = useState<string>("");
   const [type, setType] = useState<TCarType>("hatchback");
 
+  const { alert } = useAlert();
+
   // const handleChange = (value: TCarType) => {
   //   console.log("Selected value:", value);
   //   setType(value);
@@ -83,6 +86,13 @@ const CarAddForm = () => {
     reset();
     setBrand("");
     setYear("");
+    alert({
+      title: "Notify",
+      message: "Car added!",
+      autoClose: true,
+      type: "success",
+      isCloseBtn: true,
+    });
   };
 
   return (
