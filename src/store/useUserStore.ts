@@ -5,8 +5,7 @@ import { UserService } from "../api/UserService";
 import { UserLoginDto } from "../components/models/dtos/UserLogin.dto";
 import { CarCreateDto } from "../components/models/dtos/CarCreateDto.dto";
 import axios from "axios";
-import { AuthResponse } from "../components/models/response/AuthResponse";
-import { number } from "framer-motion";
+import { API_URL } from "../api";
 
 interface UserStore {
   currentUser: IProfile | null;
@@ -39,11 +38,11 @@ const useUserStore = create<UserStore>((set, get) => ({
       set({ currentUser: registerResponse.data.user_info });
 
       set({ isAuth: true });
-    } catch (err) {
+    } catch (err: any) {
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
       console.warn(errorMessage);
-      throw err;
+      throw err.response.data.detail;
     } finally {
       set({ isLoading: false });
     }
@@ -63,11 +62,11 @@ const useUserStore = create<UserStore>((set, get) => ({
 
       set({ currentUser: loggedUser.data });
       set({ isAuth: true });
-    } catch (err) {
+    } catch (err: any) {
       const errorMessage =
-        err instanceof Error ? err.message : "An unexpected error occurred";
-      console.warn(errorMessage);
-      throw err;
+        err instanceof Error ? err : "An unexpected error occurred";
+      console.warn(err);
+      throw err.response.data.detail;
     } finally {
       set({ isLoading: false });
     }
@@ -82,12 +81,16 @@ const useUserStore = create<UserStore>((set, get) => ({
   checkAuth: async () => {
     set({ isLoading: true });
     try {
-      // const response = await axios.get<AuthResponse>(
-      //   `http://127.0.0.1:8000/api/token/`,
-      //   { withCredentials: true }
-      // );
-      // console.log(response);
-      //
+      const refreshToken = localStorage.getItem("refreshToken");
+      console.log(refreshToken);
+      const response = await axios.post(`${API_URL}/token/refresh/`, {
+        refresh: refreshToken,
+      });
+      console.log(response);
+      const { access } = response.data;
+
+      localStorage.setItem("accessToken", access);
+
       const authResponse = await UserService.getMe();
       console.log(authResponse);
       set({ isAuth: true });
@@ -115,10 +118,11 @@ const useUserStore = create<UserStore>((set, get) => ({
 
         set({ currentUser: { ...currentUser, cars: updatedCars } });
       }
-    } catch (err) {
+    } catch (err: any) {
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
       console.warn(errorMessage);
+      throw err.response.data.detail;
     } finally {
       set({ isLoading: false });
     }
@@ -139,10 +143,11 @@ const useUserStore = create<UserStore>((set, get) => ({
 
         set({ currentUser: { ...currentUser, cars: updatedCars } });
       }
-    } catch (err) {
+    } catch (err: any) {
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
       console.warn(errorMessage);
+      throw err.response.data.detail;
     } finally {
       set({ isLoading: false });
     }
@@ -160,11 +165,11 @@ const useUserStore = create<UserStore>((set, get) => ({
         const updatedCars = [...(currentUser.cars || []), response.data];
         set({ currentUser: { ...currentUser, cars: updatedCars } });
       }
-    } catch (err) {
+    } catch (err: any) {
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
       console.warn(errorMessage);
-      throw err;
+      throw err.response.data.detail;
     } finally {
       set({ isLoading: false });
     }

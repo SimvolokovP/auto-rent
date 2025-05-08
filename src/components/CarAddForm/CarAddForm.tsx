@@ -11,50 +11,11 @@ import { TCarType } from "../models/ICar";
 
 import "./CarAddForm.scss";
 import { useAlert } from "../../UI/Alert";
-
-const popularCarBrands = [
-  "Toyota",
-  "Lada",
-  "Hyundai",
-  "Kia",
-  "Volkswagen",
-  "Renault",
-  "Mazda",
-  "Nissan",
-  "Chevrolet",
-  "Mercedes-Benz",
-  "BMW",
-  "Audi",
-  "Skoda",
-  "Lexus",
-  "Jaguar",
-  "Subaru",
-  "Porsche",
-  "Dacia",
-  "Suzuki",
-  "Mitsubishi",
-  "Ferrari",
-  "Porsche",
-  "Bentley",
-  "Rolls-Royce",
-  "Land Rover",
-  "Jaguar",
-  "Chery",
-  "Geely",
-  "Haval",
-  "UAZ",
-  "GAZ",
-  "ZAZ",
-  "Vaz",
-];
-
-const options = [
-  { label: "Hatchback", value: "hatchback" },
-  { label: "Sedan", value: "sedan" },
-  { label: "Minivan", value: "minivan" },
-];
-
-const years = ["2025", "2024", "2023"];
+import {
+  carsOptions,
+  carsPopularBrands,
+  carsYears,
+} from "../../helpers/carForm";
 
 const CarAddForm = () => {
   const {
@@ -96,7 +57,8 @@ const CarAddForm = () => {
       });
     } catch (error: any) {
       alert({
-        message: error.message,
+        message: error || "Server Error",
+
         title: "Error",
         type: "error",
         autoClose: true,
@@ -127,7 +89,7 @@ const CarAddForm = () => {
           placeholder="brand"
           register={register}
           errors={errors}
-          data={popularCarBrands}
+          data={carsPopularBrands}
           icon={PiCarLight}
           onChangeCustom={(v) => setBrand(v)}
           validation={{
@@ -140,7 +102,7 @@ const CarAddForm = () => {
           placeholder="Year"
           register={register}
           errors={errors}
-          data={years}
+          data={carsYears}
           icon={PiTimer}
           onChangeCustom={(v) => setYear(v)}
           validation={{
@@ -152,7 +114,7 @@ const CarAddForm = () => {
           setValue={setValue}
           name="car_type"
           register={register}
-          options={options}
+          options={carsOptions}
           placeholder="Choose a type..."
           onChangeCustom={(v) => setType(v)}
           validation={{

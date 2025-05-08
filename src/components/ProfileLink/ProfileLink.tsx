@@ -3,6 +3,7 @@ import "./ProfileLink.scss";
 import useUserStore from "../../store/useUserStore";
 import Badge from "../../UI/Badge/Badge";
 import Button from "../../UI/Button/Button";
+import { useAlert } from "../../UI/Alert";
 
 const userData = [
   { id: 1, name: "repair", status: "completed" },
@@ -12,6 +13,8 @@ const userData = [
 
 const ProfileLink = () => {
   const { currentUser, logOut } = useUserStore();
+
+  const { alert } = useAlert();
 
   function getColorByStatus(status: string) {
     switch (status) {
@@ -25,6 +28,10 @@ const ProfileLink = () => {
         return "gray";
     }
   }
+
+  const handleLogOut = () => {
+    logOut();
+  };
 
   return (
     <div className="profile-link">
@@ -43,7 +50,31 @@ const ProfileLink = () => {
           </Link>
         </Badge>
         <span>/</span>
-        <Button onClick={logOut} mode="plain" size="s">
+        <Button
+          onClick={() =>
+            alert({
+              title: "Log out",
+              message: `Do you want to log out?`,
+              autoClose: true,
+              isCloseBtn: true,
+              delay: 1200,
+              type: "warn",
+              actions: [
+                {
+                  text: "No",
+                },
+                {
+                  text: "Yes",
+                  callback: () => {
+                    handleLogOut();
+                  },
+                },
+              ],
+            })
+          }
+          mode="plain"
+          size="s"
+        >
           Log Out
         </Button>
       </div>

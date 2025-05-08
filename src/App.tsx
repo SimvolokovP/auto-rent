@@ -5,7 +5,7 @@ import AppRouter from "./router/AppRouter";
 
 // @ts-ignore
 import "swiper/css";
-import Footer from "./Footer/Footer";
+import Footer from "./components/Footer/Footer";
 import { useLocation } from "react-router-dom";
 import useUserStore from "./store/useUserStore";
 

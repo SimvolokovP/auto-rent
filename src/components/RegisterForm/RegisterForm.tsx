@@ -34,7 +34,7 @@ const RegisterForm = () => {
     } catch (error: any) {
       console.warn(error);
       alert({
-        message: error.message,
+        message: error || "Sever Error",
         title: "Error",
         type: "error",
         autoClose: true,

@@ -10,50 +10,7 @@ import Select from "../../UI/Select/Select";
 import { ICar, TCarType } from "../models/ICar";
 
 import { useAlert } from "../../UI/Alert";
-
-const popularCarBrands = [
-  "Toyota",
-  "Lada",
-  "Hyundai",
-  "Kia",
-  "Volkswagen",
-  "Renault",
-  "Mazda",
-  "Nissan",
-  "Chevrolet",
-  "Mercedes-Benz",
-  "BMW",
-  "Audi",
-  "Skoda",
-  "Lexus",
-  "Jaguar",
-  "Subaru",
-  "Porsche",
-  "Dacia",
-  "Suzuki",
-  "Mitsubishi",
-  "Ferrari",
-  "Porsche",
-  "Bentley",
-  "Rolls-Royce",
-  "Land Rover",
-  "Jaguar",
-  "Chery",
-  "Geely",
-  "Haval",
-  "UAZ",
-  "GAZ",
-  "ZAZ",
-  "Vaz",
-];
-
-const options = [
-  { label: "Hatchback", value: "hatchback" },
-  { label: "Sedan", value: "sedan" },
-  { label: "Minivan", value: "minivan" },
-];
-
-const years = ["2025", "2024", "2023"];
+import { carsOptions, carsPopularBrands, carsYears } from "../../helpers/carForm";
 
 interface EditCarFormProps {
   carId: number | null;
@@ -148,7 +105,7 @@ const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
           placeholder="brand"
           register={register}
           errors={errors}
-          data={popularCarBrands}
+          data={carsPopularBrands}
           icon={PiCarLight}
           targetValue={brand}
           onChangeCustom={(v) => setBrand(v)}
@@ -162,7 +119,7 @@ const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
           placeholder="Year"
           register={register}
           errors={errors}
-          data={years}
+          data={carsYears}
           icon={PiTimer}
           targetValue={year}
           onChangeCustom={(v) => setYear(v)}
@@ -175,7 +132,7 @@ const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
           setValue={setValue}
           name="car_type"
           register={register}
-          options={options}
+          options={carsOptions}
           placeholder="Choose a type..."
           onChangeCustom={(v) => setType(v)}
           targetValue={type}

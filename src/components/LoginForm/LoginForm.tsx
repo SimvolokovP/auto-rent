@@ -32,7 +32,7 @@ const LoginForm = () => {
     } catch (error: any) {
       console.warn(error);
       alert({
-        message: error.message,
+        message: error,
         title: "Error",
         type: "error",
         autoClose: true,
