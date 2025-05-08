@@ -17,6 +17,7 @@ interface UserStore {
   isLoading: boolean;
   addCarToUser: (carDto: CarCreateDto) => Promise<void>;
   deleteCarFromUser: (carId: number) => Promise<void>;
+  editCarToUser: (carDto: CarCreateDto, carId: number) => Promise<void>;
   logOut: () => void;
 }
 
@@ -42,6 +43,7 @@ const useUserStore = create<UserStore>((set, get) => ({
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
       console.warn(errorMessage);
+      throw err;
     } finally {
       set({ isLoading: false });
     }
@@ -97,6 +99,31 @@ const useUserStore = create<UserStore>((set, get) => ({
     }
   },
 
+  editCarToUser: async (carDto: CarCreateDto, carId: number) => {
+    try {
+      set({ isLoading: true });
+
+      const currentUser = get().currentUser;
+
+      if (currentUser) {
+        const response = await UserService.editCarToUser(carDto, carId);
+        const updatedCar = response.data;
+
+        const updatedCars = (currentUser.cars || []).map((car) =>
+          car.id === carId ? updatedCar : car
+        );
+
+        set({ currentUser: { ...currentUser, cars: updatedCars } });
+      }
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+      console.warn(errorMessage);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
   deleteCarFromUser: async (carId: number) => {
     try {
       set({ isLoading: true });
@@ -137,6 +164,7 @@ const useUserStore = create<UserStore>((set, get) => ({
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
       console.warn(errorMessage);
+      throw err;
     } finally {
       set({ isLoading: false });
     }

@@ -6,6 +6,7 @@ import UserPoints from "../UserPoints/UserPoints";
 import "./MainPageNavigation.scss";
 import Modal from "../../UI/Modal/Modal";
 import CarAddForm from "../CarAddForm/CarAddForm";
+import EditCarForm from "../EditCarForm/EditCarForm";
 
 const MainPageNavigation = () => {
   const [isCarModalOpen, setIsCarModalOpen] = useState<boolean>(false);
@@ -18,7 +19,11 @@ const MainPageNavigation = () => {
       <div className="main-navigation__item main-navigation__item--large">
         <>
           <div className="main-navigation-item__chapter">My cars</div>
-          <Button className="main-navigation-item__adder" onClick={() => setIsCarModalOpen(true)} size="s">
+          <Button
+            className="main-navigation-item__adder"
+            onClick={() => setIsCarModalOpen(true)}
+            size="s"
+          >
             +
           </Button>
           <MyCars
@@ -38,8 +43,7 @@ const MainPageNavigation = () => {
         <CarAddForm />
       </Modal>
       <Modal open={isEditModalOpen} setOpen={setIsEditModalOpen}>
-        <div>edit</div>
-        {carIdToEdit && <div>{carIdToEdit}</div>}
+        <EditCarForm carId={carIdToEdit} />
       </Modal>
     </div>
   );

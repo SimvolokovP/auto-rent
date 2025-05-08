@@ -2,14 +2,13 @@ import { useForm } from "react-hook-form";
 import Input from "../../UI/Input/Input";
 import AutoComplete from "../../UI/AutoComplete/AutoComplete";
 import Button from "../../UI/Button/Button";
-import { useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { PiCarLight, PiCarProfile, PiTimer } from "react-icons/pi";
 import { CarCreateDto } from "../models/dtos/CarCreateDto.dto";
 import useUserStore from "../../store/useUserStore";
 import Select from "../../UI/Select/Select";
-import { TCarType } from "../models/ICar";
+import { ICar, TCarType } from "../models/ICar";
 
-import "./CarAddForm.scss";
 import { useAlert } from "../../UI/Alert";
 
 const popularCarBrands = [
@@ -56,17 +55,23 @@ const options = [
 
 const years = ["2025", "2024", "2023"];
 
-const CarAddForm = () => {
+interface EditCarFormProps {
+  carId: number | null;
+}
+
+const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
   const {
     register,
     handleSubmit,
     reset,
     setValue,
-
+    watch,
     formState: { errors },
   } = useForm<CarCreateDto>();
 
-  const { isLoading, addCarToUser } = useUserStore();
+  const { isLoading, editCarToUser, currentUser } = useUserStore();
+
+  const [carToEdit, setCarToEdit] = useState<ICar | null>(null);
 
   const [brand, setBrand] = useState<string>("");
   const [year, setYear] = useState<string>("");
@@ -74,26 +79,41 @@ const CarAddForm = () => {
 
   const { alert } = useAlert();
 
-  // const handleChange = (value: TCarType) => {
-  //   console.log("Selected value:", value);
-  //   setType(value);
-  // };
+  const watchedFields = watch();
+
+  useEffect(() => {
+    const targetCar = currentUser?.cars.find((car) => car.id === carId);
+    if (targetCar) {
+      setCarToEdit(targetCar);
+      reset({
+        name: targetCar.name,
+      });
+      setBrand(targetCar.brand);
+      setYear(targetCar.year ? targetCar.year.split("-")[0] : "");
+      setType(targetCar.car_type);
+    }
+  }, [carId, currentUser, reset]);
+
+  const isChanged =
+    carToEdit &&
+    (watchedFields.name !== carToEdit.name ||
+      brand !== carToEdit.brand ||
+      year !== (carToEdit.year ? carToEdit.year.split("-")[0] : "") ||
+      type !== carToEdit.car_type);
 
   const onSubmit = async (car: CarCreateDto) => {
     try {
-      car = { ...car, brand, year: `${year}-01-01`, car_type: type };
-      console.log(car);
-      await addCarToUser(car);
-      reset();
-      setBrand("");
-      setYear("");
-      alert({
-        title: "Notify",
-        message: "Car added!",
-        autoClose: true,
-        type: "success",
-        isCloseBtn: true,
-      });
+      if (carToEdit) {
+        car = { ...car, brand, year: `${year}-01-01`, car_type: type };
+        await editCarToUser(car, carToEdit.id);
+        alert({
+          title: "Notify",
+          message: "Car updated!",
+          autoClose: true,
+          type: "success",
+          isCloseBtn: true,
+        });
+      }
     } catch (error: any) {
       alert({
         message: error.message,
@@ -108,9 +128,10 @@ const CarAddForm = () => {
 
   return (
     <div className="car-form-container">
-      <div className="car-form-title">Add Car</div>
+      <div className="car-form-title">Edit {carToEdit?.name}</div>
       <form onSubmit={handleSubmit(onSubmit)} className="car-form">
         <Input
+          defaultValue={carToEdit?.name ?? ""}
           name="name"
           placeholder="Name"
           type="text"
@@ -129,6 +150,7 @@ const CarAddForm = () => {
           errors={errors}
           data={popularCarBrands}
           icon={PiCarLight}
+          targetValue={brand}
           onChangeCustom={(v) => setBrand(v)}
           validation={{
             required: "Required field",
@@ -142,6 +164,7 @@ const CarAddForm = () => {
           errors={errors}
           data={years}
           icon={PiTimer}
+          targetValue={year}
           onChangeCustom={(v) => setYear(v)}
           validation={{
             required: "Required field",
@@ -155,6 +178,7 @@ const CarAddForm = () => {
           options={options}
           placeholder="Choose a type..."
           onChangeCustom={(v) => setType(v)}
+          targetValue={type}
           validation={{
             required: "Required field",
           }}
@@ -167,12 +191,13 @@ const CarAddForm = () => {
           stretched
           type="submit"
           isLoading={isLoading}
+          disabled={!isChanged}
         >
-          Add
+          Edit
         </Button>
       </form>
     </div>
   );
 };
 
-export default CarAddForm;
+export default EditCarForm;

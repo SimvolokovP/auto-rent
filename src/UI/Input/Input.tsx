@@ -15,6 +15,7 @@ interface InputProps {
   mask?: (value: string) => string;
   accept?: string;
   onChangeCustom?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  defaultValue?: any;
 }
 
 const Input: FC<InputProps> = ({
@@ -28,6 +29,7 @@ const Input: FC<InputProps> = ({
   mask,
   accept,
   onChangeCustom,
+  defaultValue,
 }) => {
   const [preview, setPreview] = useState<string | null>(null);
 

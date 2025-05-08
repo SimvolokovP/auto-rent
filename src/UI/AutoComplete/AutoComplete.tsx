@@ -13,6 +13,7 @@ interface AutoCompleteProps {
   onChangeCustom?: (value: string) => void;
   icon?: IconType | null;
   validation?: object;
+  targetValue?: any;
 }
 
 const AutoComplete: FC<AutoCompleteProps> = ({
@@ -24,6 +25,7 @@ const AutoComplete: FC<AutoCompleteProps> = ({
   data = [],
   icon = null,
   validation = {},
+  targetValue = null,
 }) => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isHideSuggs, setIsHideSuggs] = useState(true);
@@ -31,6 +33,12 @@ const AutoComplete: FC<AutoCompleteProps> = ({
 
   // const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (targetValue) {
+      setSelectedValue(targetValue);
+    }
+  }, [targetValue]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;

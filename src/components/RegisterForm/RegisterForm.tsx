@@ -10,6 +10,7 @@ import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import { useEffect } from "react";
 import { maskPhone } from "../../helpers/maskPhone";
 import { PiMailboxFill, PiPassword, PiPhoneFill } from "react-icons/pi";
+import { useAlert } from "../../UI/Alert";
 
 const RegisterForm = () => {
   const {
@@ -24,8 +25,22 @@ const RegisterForm = () => {
 
   const navigate = useNavigate();
 
+  const { alert } = useAlert()
+
   const onSubmit = async (user: UserRegisterDto) => {
-    await registration(user);
+    try {
+      console.log(user);
+      await registration(user);
+    } catch (error: any) {
+      console.warn(error);
+      alert({
+        message: error.message,
+        title: "Error",
+        type: "error",
+        autoClose: true,
+        delay: 100,
+      });
+    }
   };
 
   useEffect(() => {

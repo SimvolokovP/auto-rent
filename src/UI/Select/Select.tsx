@@ -19,6 +19,7 @@ interface SelectProps {
   OptionComponent?: FC<OptionProps> | null;
   validation?: object;
   setValue: (name: any, value: any) => void;
+  targetValue?: any;
 }
 
 const Select: FC<SelectProps> = ({
@@ -31,11 +32,18 @@ const Select: FC<SelectProps> = ({
   OptionComponent = null,
   validation = {},
   setValue,
+  targetValue = null,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState<string>("");
 
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (targetValue) {
+      setSelectedLabel(targetValue);
+    }
+  }, [targetValue]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);

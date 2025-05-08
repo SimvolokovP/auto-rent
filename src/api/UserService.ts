@@ -71,6 +71,27 @@ export class UserService {
     }
   }
 
+  static async editCarToUser(
+    carDto: CarCreateDto,
+    carId: number
+  ): Promise<AxiosResponse<ICar>> {
+    try {
+      console.log(carDto);
+      const { brand, car_type, name, year } = carDto;
+      console.log(carDto, carId);
+      const response = await authHost.patch(`/car/${carId}/`, {
+        brand,
+        car_type,
+        name,
+        year,
+      });
+      return response;
+    } catch (err) {
+      console.warn("Car edit error:", err);
+      throw err;
+    }
+  }
+
   static async deleteCarFromUser(carId: number): Promise<AxiosResponse<ICar>> {
     try {
       const response = await authHost.delete(`/car/${carId}/`);
