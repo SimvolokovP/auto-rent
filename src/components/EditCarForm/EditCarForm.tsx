@@ -10,7 +10,11 @@ import Select from "../../UI/Select/Select";
 import { ICar, TCarType } from "../models/ICar";
 
 import { useAlert } from "../../UI/Alert";
-import { carsOptions, carsPopularBrands, carsYears } from "../../helpers/carForm";
+import {
+  carsOptions,
+  carsPopularBrands,
+  carsYears,
+} from "../../helpers/carForm";
 
 interface EditCarFormProps {
   carId: number | null;

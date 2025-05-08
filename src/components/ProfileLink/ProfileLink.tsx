@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import "./ProfileLink.scss";
 import useUserStore from "../../store/useUserStore";
 import Badge from "../../UI/Badge/Badge";
-import Button from "../../UI/Button/Button";
-import { useAlert } from "../../UI/Alert";
 
 const userData = [
   { id: 1, name: "repair", status: "completed" },
@@ -12,9 +10,7 @@ const userData = [
 ];
 
 const ProfileLink = () => {
-  const { currentUser, logOut } = useUserStore();
-
-  const { alert } = useAlert();
+  const { currentUser } = useUserStore();
 
   function getColorByStatus(status: string) {
     switch (status) {
@@ -29,10 +25,6 @@ const ProfileLink = () => {
     }
   }
 
-  const handleLogOut = () => {
-    logOut();
-  };
-
   return (
     <div className="profile-link">
       <div className="profile-link__chapter">My Profile</div>
@@ -43,41 +35,12 @@ const ProfileLink = () => {
           count={1}
           position="right-top"
         >
-          <Link to={"/profile"}>
-            <div className="profile-link__username">
-              {currentUser?.first_name}
-            </div>
-          </Link>
+          <div className="profile-link__username">
+            {currentUser?.first_name}
+          </div>
         </Badge>
-        <span>/</span>
-        <Button
-          onClick={() =>
-            alert({
-              title: "Log out",
-              message: `Do you want to log out?`,
-              autoClose: true,
-              isCloseBtn: true,
-              delay: 1200,
-              type: "warn",
-              actions: [
-                {
-                  text: "No",
-                },
-                {
-                  text: "Yes",
-                  callback: () => {
-                    handleLogOut();
-                  },
-                },
-              ],
-            })
-          }
-          mode="plain"
-          size="s"
-        >
-          Log Out
-        </Button>
       </div>
+      <Link className="profile-link__link" to={"/profile"}></Link>
     </div>
   );
 };

@@ -30,12 +30,13 @@
   }
 
   &--bezeled {
-    background-color: #ffffff;
-    border: 2px solid transparent;
+    background-color: transparent;
+    border: 2px solid var(--btn-filled-back);
+    color: var(--btn-filled-back);
 
     @media (hover: hover) {
       &:hover {
-        opacity: 0.85;
+        opacity: 0.65;
       }
     }
   }

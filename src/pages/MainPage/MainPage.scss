@@ -4,6 +4,9 @@
   &__bottom {
     width: 100%;
     max-width: 768px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   &__top {

@@ -19,7 +19,7 @@ const BookingForm = () => {
 
   return (
     <div className="booking-form-container">
-      <div className="booking-form-title">Booking</div>
+      {/* <div className="booking-form-title">Booking</div> */}
       <form>
         <DateTimePicker
           selectedDate={selectedDate}
