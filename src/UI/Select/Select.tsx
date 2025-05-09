@@ -5,7 +5,7 @@ import { PiArrowUpBold } from "react-icons/pi";
 
 interface OptionProps {
   label: string;
-  value: string;
+  value: string | number;
 }
 
 interface SelectProps {
@@ -87,7 +87,7 @@ const Select: FC<SelectProps> = ({
         <ul className={`${styles.options} ${isOpen ? styles.show : ""}`}>
           {options.map((option, idx) => (
             <li
-              key={option.value + idx}
+              key={option.value.toString() + idx}
               className={styles.option}
               onClick={() => handleOptionSelect(option)}
             >

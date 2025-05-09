@@ -65,7 +65,7 @@
   --calendar-active: #282931;
   --calendar-hover: #313131;
 
-  --alert-shadow: 0px 10px 30px rgba(255, 255, 255, 0.3);
+  --alert-shadow: 0px 2px 5px rgba(255, 255, 255, 0.3);
 
 }
 
@@ -77,7 +77,7 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
 }
@@ -95,7 +95,7 @@ body {
 
 ::-webkit-scrollbar-track {
   background-color: transparent;
-}
+} */
 
 body {
   scrollbar-width: thin;

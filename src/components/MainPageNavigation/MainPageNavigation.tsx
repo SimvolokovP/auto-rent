@@ -7,12 +7,16 @@ import "./MainPageNavigation.scss";
 import Modal from "../../UI/Modal/Modal";
 import CarAddForm from "../CarAddForm/CarAddForm";
 import EditCarForm from "../EditCarForm/EditCarForm";
+import Skeleton from "../../UI/Skeleton/Skeleton";
+import useUserStore from "../../store/useUserStore";
 
 const MainPageNavigation = () => {
   const [isCarModalOpen, setIsCarModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
   const [carIdToEdit, setCarIdToEdit] = useState<number | null>(null);
+
+  const { isLoading } = useUserStore();
 
   return (
     <div className="main-navigation">
@@ -26,19 +30,25 @@ const MainPageNavigation = () => {
           >
             +
           </Button>
-          <MyCars
-            isEditModalOpen={isEditModalOpen}
-            setIsEditModalOpen={setIsEditModalOpen}
-            setCarIdToEdit={setCarIdToEdit}
-          />
+          {!isLoading && (
+            <MyCars
+              isEditModalOpen={isEditModalOpen}
+              setIsEditModalOpen={setIsEditModalOpen}
+              setCarIdToEdit={setCarIdToEdit}
+            />
+          )}
         </>
       </div>
-      <div className="main-navigation__item">
-        <ProfileLink />
-      </div>
-      <div className="main-navigation__item">
-        <UserPoints />
-      </div>
+      <Skeleton isActive={isLoading}>
+        <div className="main-navigation__item">
+          <ProfileLink />
+        </div>
+      </Skeleton>
+      <Skeleton isActive={isLoading}>
+        <div className="main-navigation__item">
+          <UserPoints />
+        </div>
+      </Skeleton>
       <Modal open={isCarModalOpen} setOpen={setIsCarModalOpen}>
         <CarAddForm />
       </Modal>

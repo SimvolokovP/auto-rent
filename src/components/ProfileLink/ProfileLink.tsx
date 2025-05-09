@@ -2,28 +2,29 @@ import { Link } from "react-router-dom";
 import "./ProfileLink.scss";
 import useUserStore from "../../store/useUserStore";
 import Badge from "../../UI/Badge/Badge";
+import { useEffect } from "react";
 
-const userData = [
-  { id: 1, name: "repair", status: "completed" },
-  { id: 2, name: "repair", status: "rejected" },
-  { id: 3, name: "repair", status: "rejected" },
-];
+function getColorByStatus(status: string) {
+  switch (status) {
+    case "C":
+      return "gray";
+    case "R":
+      return "red";
+    case "A":
+      return "green";
+    default:
+      return "gray";
+  }
+}
 
 const ProfileLink = () => {
-  const { currentUser } = useUserStore();
+  const { records, getRecords, currentUser } = useUserStore();
 
-  function getColorByStatus(status: string) {
-    switch (status) {
-      case "completed":
-        return "gray";
-      case "rejected":
-        return "red";
-      case "accepted":
-        return "green";
-      default:
-        return "gray";
+  useEffect(() => {
+    if (currentUser) {
+      getRecords();
     }
-  }
+  }, [currentUser]);
 
   return (
     <div className="profile-link">
@@ -31,8 +32,8 @@ const ProfileLink = () => {
 
       <div className="profile-link__descr">
         <Badge
-          color={getColorByStatus(userData[userData.length - 1].status)}
-          count={1}
+          color={getColorByStatus(records[records.length - 1]?.status)}
+          count={records.length}
           position="right-top"
         >
           <div className="profile-link__username">

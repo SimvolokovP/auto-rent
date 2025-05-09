@@ -27,6 +27,7 @@ const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
     reset,
     setValue,
     watch,
+    getValues,
     formState: { errors },
   } = useForm<CarCreateDto>();
 
@@ -49,6 +50,10 @@ const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
       reset({
         name: targetCar.name,
       });
+      setValue("name", targetCar.name);
+      setValue("brand", targetCar.brand);
+      setValue("car_type", targetCar.car_type);
+      setValue("year", targetCar.year ? targetCar.year.split("-")[0] : "");
       setBrand(targetCar.brand);
       setYear(targetCar.year ? targetCar.year.split("-")[0] : "");
       setType(targetCar.car_type);
@@ -57,7 +62,7 @@ const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
 
   const isChanged =
     carToEdit &&
-    (watchedFields.name !== carToEdit.name ||
+    (watchedFields.name !== getValues().name ||
       brand !== carToEdit.brand ||
       year !== (carToEdit.year ? carToEdit.year.split("-")[0] : "") ||
       type !== carToEdit.car_type);

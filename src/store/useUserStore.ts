@@ -6,9 +6,13 @@ import { UserLoginDto } from "../components/models/dtos/UserLogin.dto";
 import { CarCreateDto } from "../components/models/dtos/CarCreateDto.dto";
 import axios from "axios";
 import { API_URL } from "../api";
+import { IRecord } from "../components/models/IRecord";
+import { RecordService } from "../api/RecordService";
+import { RecordCreateDto } from "../components/models/dtos/RecordCreateDto.dto";
 
 interface UserStore {
   currentUser: IProfile | null;
+  records: IRecord[] | [];
   registration: (registerDto: UserRegisterDto) => Promise<void>;
   login: (loginDto: UserLoginDto) => Promise<void>;
   checkAuth: () => Promise<void>;
@@ -18,12 +22,15 @@ interface UserStore {
   deleteCarFromUser: (carId: number) => Promise<void>;
   editCarToUser: (carDto: CarCreateDto, carId: number) => Promise<void>;
   logOut: () => void;
+  getRecords: () => Promise<void>;
+  createRecord: (recordDto: RecordCreateDto) => Promise<void>;
 }
 
 const useUserStore = create<UserStore>((set, get) => ({
   currentUser: null,
   isAuth: false,
   isLoading: false,
+  records: [],
   registration: async (registerDto: UserRegisterDto) => {
     try {
       set({ isLoading: true });
@@ -164,6 +171,47 @@ const useUserStore = create<UserStore>((set, get) => ({
 
         const updatedCars = [...(currentUser.cars || []), response.data];
         set({ currentUser: { ...currentUser, cars: updatedCars } });
+      }
+    } catch (err: any) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+      console.warn(errorMessage);
+      throw err.response.data.detail;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  getRecords: async () => {
+    try {
+      set({ isLoading: true });
+
+      const response = await RecordService.getAll();
+
+      const records = response.data;
+      console.log(records);
+      set({ records: records });
+    } catch (err: any) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+      console.warn(errorMessage);
+      throw err.response.data.detail;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  createRecord: async (recordDto: RecordCreateDto) => {
+    try {
+      set({ isLoading: true });
+
+      const currentRecords = get().records;
+
+      if (currentRecords) {
+        const response = await RecordService.createRecord(recordDto);
+
+        const updatedRecords = [...(currentRecords || []), response.data];
+        set({ records: updatedRecords });
       }
     } catch (err: any) {
       const errorMessage =

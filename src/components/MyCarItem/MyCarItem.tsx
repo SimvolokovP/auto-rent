@@ -27,8 +27,25 @@ const MyCarItem: FC<MyCarItemProps> = ({
     setCarIdToEdit(car.id);
   };
 
-  const handleDelete = () => {
-    deleteCarFromUser(car.id);
+  const handleDelete = async () => {
+    try {
+      await deleteCarFromUser(car.id);
+      alert({
+        title: "Notify",
+        message: "Car deleted!",
+        autoClose: true,
+        type: "success",
+        isCloseBtn: true,
+      });
+    } catch (error: any) {
+      alert({
+        message: error.message,
+        title: "Error",
+        type: "error",
+        autoClose: true,
+        delay: 100,
+      });
+    }
   };
 
   return (

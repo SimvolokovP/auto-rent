@@ -1,0 +1,29 @@
+.skeleton {
+  position: relative;
+  display: inline-block;
+
+  &_block {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(220, 220, 220, 1) 25%,
+      rgba(220, 220, 220, 1) 50%,
+      rgba(220, 220, 220, 1) 75%
+    );
+    background-size: 200% 100%;
+    animation: shine 1.5s infinite;
+    border-radius: 20px;
+    pointer-events: none;
+    z-index: 10;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
