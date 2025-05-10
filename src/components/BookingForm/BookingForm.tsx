@@ -25,6 +25,7 @@ import { ICar } from "../models/ICar";
 import Button from "../../UI/Button/Button";
 import Modal from "../../UI/Modal/Modal";
 import CarAddForm from "../CarAddForm/CarAddForm";
+import ServicesTab from "../ServicesTab/ServicesTab";
 
 const BookingForm = () => {
   const {
@@ -41,6 +42,9 @@ const BookingForm = () => {
   const timeOptions = generateTimeOptions();
 
   const [selectedCarId, setSelectedCarId] = useState<number | null>(null);
+  const [selectedServiceId, setSelectedServiceId] = useState<number | null>(
+    null
+  );
 
   const { currentUser, isLoading, createRecord } = useUserStore();
 
@@ -50,7 +54,7 @@ const BookingForm = () => {
 
   const onSubmit = async (record: RecordCreateDto) => {
     try {
-      if (selectedCarId && selectedDate && selectedTime) {
+      if (selectedCarId && selectedDate && selectedTime && selectedServiceId) {
         const date = new Date(selectedDate);
         const [hours, minutes] = selectedTime.split(":").map(Number);
         date.setHours(hours);
@@ -61,8 +65,8 @@ const BookingForm = () => {
         record = {
           ...record,
           car: selectedCarId,
-          description: "",
-          service: 1,
+
+          service: selectedServiceId,
           recording_date: recordingDateISO,
         };
 
@@ -76,10 +80,11 @@ const BookingForm = () => {
         });
         reset();
         setSelectedDate(null);
+        setSelectedServiceId(null);
         setSelectedTime("");
       } else {
         alert({
-          message: "Please, choose date & time",
+          message: "Please, choose date&time and service",
           title: "Error",
           type: "error",
           autoClose: true,
@@ -123,6 +128,14 @@ const BookingForm = () => {
           }}
         />
 
+        <Input
+          name="description"
+          placeholder="description"
+          type="text"
+          register={register}
+          errors={errors}
+        />
+
         <div className="booking-form__label">
           <Select
             setValue={setValue}
@@ -145,6 +158,11 @@ const BookingForm = () => {
             +
           </Button>
         </div>
+
+        <ServicesTab
+          currentService={selectedServiceId}
+          setCurrentService={setSelectedServiceId}
+        />
 
         <DateTimePicker
           selectedDate={selectedDate}

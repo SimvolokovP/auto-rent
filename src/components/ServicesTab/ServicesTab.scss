@@ -1,0 +1,40 @@
+.services-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  &__item {
+    color: var(--text-color);
+    background-color: var(--item-color);
+
+    border-radius: 20px;
+    height: 90px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: all 0.3s ease-in-out;
+    gap: 4px;
+    cursor: pointer;
+
+    &--name {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    &--price {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 3px;
+    }
+
+    &.active {
+      background-color: var(--btn-filled-back);
+      color: var(--btn-inner);
+    }
+  }
+}
