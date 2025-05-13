@@ -63,7 +63,7 @@ const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
   const isChanged =
     carToEdit &&
     (watchedFields.name !== getValues().name ||
-      brand !== carToEdit.brand ||
+      brand.toLowerCase() !== carToEdit.brand.toLowerCase() ||
       year !== (carToEdit.year ? carToEdit.year.split("-")[0] : "") ||
       type !== carToEdit.car_type);
 
@@ -82,7 +82,7 @@ const EditCarForm: FC<EditCarFormProps> = ({ carId }) => {
       }
     } catch (error: any) {
       alert({
-        message: error.message,
+        message: error?.message ? error.message : "Error",
         title: "Error",
         type: "error",
         autoClose: true,

@@ -39,7 +39,7 @@ const MyCarItem: FC<MyCarItemProps> = ({
       });
     } catch (error: any) {
       alert({
-        message: error.message,
+        message: error?.message ? error.message : "Error",
         title: "Error",
         type: "error",
         autoClose: true,
@@ -65,7 +65,7 @@ const MyCarItem: FC<MyCarItemProps> = ({
           <span>
             <PiClockFill size={20} />
           </span>
-          <span>{car.year}</span>
+          <span>{car.year.split("-")[0]}</span>
         </div>
         <div className="my-car-item__action" onClick={handleEdit}>
           <span>

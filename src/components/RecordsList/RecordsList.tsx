@@ -38,7 +38,7 @@ const RecordsList: FC<RecordsListProps> = ({ records }) => {
     <ul className="records-list">
       {recordsList &&
         recordsList.map((record) => (
-          <li className="records-list__item">
+          <li key={record.id} className="records-list__item">
             <div className="records-item__left">
               <div className="records-item__date">
                 {formatDateTime(record.recording_date)}
