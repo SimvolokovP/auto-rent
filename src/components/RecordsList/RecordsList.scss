@@ -1,0 +1,46 @@
+.records-list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 768px;
+  padding: 12px;
+  color: var(--text-color);
+
+  &__item {
+    background-color: var(--item-color);
+    padding: 12px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+.records-item {
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__date {
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  &__service {
+    font-size: 15px;
+  }
+
+  &__status {
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+  }
+}

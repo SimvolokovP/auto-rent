@@ -3,19 +3,7 @@ import "./ProfileLink.scss";
 import useUserStore from "../../store/useUserStore";
 import Badge from "../../UI/Badge/Badge";
 import { useEffect } from "react";
-
-function getColorByStatus(status: string) {
-  switch (status) {
-    case "C":
-      return "gray";
-    case "R":
-      return "red";
-    case "A":
-      return "green";
-    default:
-      return "gray";
-  }
-}
+import { getColorByStatus } from "../../helpers/getColorByStatus";
 
 const ProfileLink = () => {
   const { records, getRecords, currentUser } = useUserStore();

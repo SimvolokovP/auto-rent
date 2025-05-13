@@ -3,8 +3,14 @@ import AnimatedBlock from "../../components/AnimatedBlock/AnimatedBlock";
 
 import Header from "../../components/Header/Header";
 import Breadcrumb from "../../UI/Breadcrumb/Breadcrumb";
+import RecordsList from "../../components/RecordsList/RecordsList";
+import useUserStore from "../../store/useUserStore";
+
+import "./ProfilePage.scss";
 
 const ProfilePage = () => {
+  const { records } = useUserStore();
+
   return (
     <AnimatedBlock>
       <div className="page profile-page">
@@ -16,6 +22,9 @@ const ProfilePage = () => {
               { title: <Link to="/profile">Profile</Link> },
             ]}
           />
+          <div className="profile-page__content">
+            <RecordsList records={records} />
+          </div>
         </div>
       </div>
     </AnimatedBlock>
